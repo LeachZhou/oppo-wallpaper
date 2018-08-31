@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="image-con">
+  <view class='change-img-con' > 
+    <image src='../../image/gbm-9-_4x.jpg' class='change-img' mode="aspectFill" bindtouchstart="startEvent" bindtouchmove="moveEvent" bindload="imageLoad" animation="{{animationData}}" bindtouchend="endEvent" style='transform: translate({{x}}rpx, {{y}}rpx);'></image>
+  </view>
+</view>
