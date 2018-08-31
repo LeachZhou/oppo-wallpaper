@@ -1,6 +1,8 @@
 <!--index.wxml-->
 <view class="image-con">
-  <view class='change-img-con' > 
-    <image src='../../image/gbm-9-_4x.jpg' class='change-img' mode="aspectFill" bindtouchstart="startEvent" bindtouchmove="moveEvent" bindload="imageLoad" animation="{{animationData}}" bindtouchend="endEvent" style='transform: translate({{x}}rpx, {{y}}rpx);'></image>
-  </view>
+  <movable-area class='change-img-area'>
+    <movable-view direction="all" class='change-img-view' x="{{x}}" y="{{y}}" bindchange="movableChange" style='transform: rotate({{deg}}deg)'>
+      <image src='../../image/gbm-9-_4x.jpg' class='change-img' mode="aspectFill" ></image>
+    </movable-view>
+  </movable-area>
 </view>
