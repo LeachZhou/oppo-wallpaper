@@ -34,3 +34,5 @@ Page({
 
 
 })
+
+//http://www.sucaihuo.com/js/748.html elastiStack.js是一款可拖动并且非常具有弹性图片展示效果的插件。
