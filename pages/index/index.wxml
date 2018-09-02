@@ -2,7 +2,7 @@
 <view class="image-con">
   <movable-area class='change-img-area'>
     <movable-view direction="all" class='change-img-view' x="{{x}}" y="{{y}}" bindchange="movableChange" style='transform: rotate({{deg}}deg)'>
-      <image src='../../image/gbm-9-_4x.jpg' class='change-img' mode="aspectFill" ></image>
+      <image src='../../image/1.jpg' class='change-img' mode="aspectFill" ></image>
     </movable-view>
   </movable-area>
 </view>

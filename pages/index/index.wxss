@@ -16,7 +16,6 @@
 }
 
 .change-img-view {
-  transition: all 1s ease;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -24,6 +23,7 @@
   margin-top: -320rpx;
   width: 480rpx;
   height: 640rpx;
+  transform-origin: 0 0%;
 }
 
 .change-img {

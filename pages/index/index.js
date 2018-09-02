@@ -35,4 +35,5 @@ Page({
 
 })
 
-//http://www.sucaihuo.com/js/748.html elastiStack.js是一款可拖动并且非常具有弹性图片展示效果的插件。
+//http://www.htmleaf.com/Demo/20141023275.html 洗牌图片切换特效
+//http://www.htmleaf.com/Demo/20141019230.html 图片堆叠效果
