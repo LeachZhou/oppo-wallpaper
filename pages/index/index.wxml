@@ -2,12 +2,12 @@
 <view class="image-con">
   <movable-area class='change-img-area'>
     <movable-view direction="all" class='change-img-view' x="{{x}}" y="{{y}}" damping="100" bindchange="movableChange" bindtouchend="movableEnd" >
-      <image src='{{imageActive}}' class='change-img change-img-active' mode="aspectFill" animation="{{animationData}}" style='opacity: {{endOpacity}};'></image>
+      <image src='{{mainActive}}' class='change-img change-img-active' mode="aspectFill" animation="{{animationData}}" style='opacity: {{endOpacity}};'></image>
     </movable-view>
   </movable-area>
   <view class='change-img-area2'>
     <view class='change-img-view2'>
-      <image src='{{item}}' wx:for="{{imageList}}" wx:key="index" class='change-img' mode="aspectFill"></image>
+      <image src='{{item}}' wx:for="{{mainList}}" wx:key="index" class='change-img' mode="aspectFill"></image>
     </view>
   </view>
 </view>
