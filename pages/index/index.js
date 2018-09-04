@@ -32,7 +32,7 @@ Page({
       }
     });
     // wx.request({
-    //   url: '',
+    //   url: 'https://gitee.com/LeachZhou/Daily-Wallpaper/blob/master/20180903.json',
     //   method: 'GET',
     //   header: {
     //     'content-type': 'application/json'
