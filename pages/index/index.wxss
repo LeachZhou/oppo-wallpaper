@@ -42,7 +42,7 @@
   margin-left: -280rpx;
   margin-top: -400rpx;
   width: 560rpx;
-  height: 800rpx; 
+  height: 800rpx;
 }
 
 .change-img {
@@ -52,7 +52,7 @@
   width: 100%;
   height: 100%;
   border-radius: 40rpx;
-  transform-origin: 50% 0; 
+  transform-origin: 50% 0;
 }
 
 .change-img-active {
@@ -78,4 +78,33 @@
 .change-img-area2 .change-img:nth-of-type(3) {
   z-index: 97;
   transform: scale(0.7) translateY(-60rpx);
+}
+
+.change-img-title {
+  position: absolute;
+  bottom: 60rpx;
+  left: 0;
+  font-size: 24rpx;
+  z-index: 101;
+  padding: 0 25rpx;
+  color: #fff;
+  text-align: left;
+  transition: all 1s ease;
+}
+
+.change-img-author {
+  position: absolute;
+  bottom: 20rpx;
+  left: 0;
+  font-size: 24rpx;
+  z-index: 101;
+  padding: 0 25rpx;
+  color: #fff;
+  text-align: left;
+  transition: all 1s ease;
+}
+
+.top {
+  position: absolute;
+  top: 50rpx;
 }
