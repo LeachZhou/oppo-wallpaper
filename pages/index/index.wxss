@@ -14,6 +14,7 @@
   height: 100vh;
   text-align: center;
   z-index: 1000;
+  transition: all 1s ease;
 }
 
 .change-img-area2 {
@@ -41,7 +42,7 @@
   margin-left: -280rpx;
   margin-top: -400rpx;
   width: 560rpx;
-  height: 800rpx;
+  height: 800rpx; 
 }
 
 .change-img {
@@ -51,7 +52,7 @@
   width: 100%;
   height: 100%;
   border-radius: 40rpx;
-  transform-origin: 50% 0;
+  transform-origin: 50% 0; 
 }
 
 .change-img-active {
