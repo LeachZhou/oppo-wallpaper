@@ -14,7 +14,6 @@
   height: 100vh;
   text-align: center;
   z-index: 1000;
-  transition: all 1s ease;
 }
 
 .change-img-area2 {
@@ -22,27 +21,21 @@
   width: 100%;
   height: 100vh;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 999;
 }
 
 .change-img-view {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -280rpx;
-  margin-top: -400rpx;
   width: 560rpx;
   height: 800rpx;
 }
 
 .change-img-view2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -280rpx;
-  margin-top: -400rpx;
   width: 560rpx;
   height: 800rpx;
+  transition: all .6s ease;
 }
 
 .change-img {
@@ -60,24 +53,19 @@
   transform: scale(1) translateY(0);
 }
 
-.change-img-area2 .change-img1 {
-  z-index: 99;
-  transform: scale(0.9) translateY(-20rpx);
-}
-
 .change-img-area2 .change-img:nth-of-type(1) {
   z-index: 99;
-  transform: scale(0.9) translateY(-20rpx);
+  transform: scale(0.9) translateY(-10px);
 }
 
 .change-img-area2 .change-img:nth-of-type(2) {
   z-index: 98;
-  transform: scale(0.8) translateY(-40rpx);
+  transform: scale(0.8) translateY(-20px);
 }
 
 .change-img-area2 .change-img:nth-of-type(3) {
   z-index: 97;
-  transform: scale(0.7) translateY(-60rpx);
+  transform: scale(0.7) translateY(-30px);
 }
 
 .change-img-title {
@@ -89,7 +77,7 @@
   padding: 0 25rpx;
   color: #fff;
   text-align: left;
-  transition: all 1s ease;
+  transition: all 0.6s ease;
 }
 
 .change-img-author {
@@ -101,10 +89,45 @@
   padding: 0 25rpx;
   color: #fff;
   text-align: left;
-  transition: all 1s ease;
+  transition: all 0.6s ease;
+}
+
+.change-img-time {
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+  font-size: 24rpx;
+  z-index: 101;
+  padding: 2rpx 12rpx 4rpx;
+  background: rgba(255, 255, 255, 0.384);
+  color: #fff;
+  border-radius: 20rpx 20rpx 20rpx 0;
+  transition: all 0.6s ease;
 }
 
 .top {
   position: absolute;
-  top: 50rpx;
+  top: 34rpx;
+}
+
+.top image {
+  display: block;
+  width: 300rpx;
+  height: 92rpx;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 34rpx;
+  width: 450rpx;
+  font-size: 22rpx;
+  text-align: center;
+  color: #b4b4b4;
+}
+
+.overTip{
+  display: none;
+  font-size: 30rpx;
+  width: 400rpx;
+  text-align: center;
 }

@@ -1,16 +1,25 @@
 <!--index.wxml-->
 <view class="image-con">
-  <view class='top'>OPPO锁屏</view>
+  <view class='top'>
+    <image src='../../image/op.png'></image>
+  </view>
   <movable-area class='change-img-area'>
     <movable-view direction="all" class='change-img-view' x="{{x}}" y="{{y}}" damping="100" bindchange="movableChange" bindtouchend="movableEnd">
       <image src='{{mainActive.img}}' class='change-img change-img-active' mode="aspectFill" animation="{{animationData}}" style='opacity: {{endOpacity}};' bindtap="previewImg"></image>
       <view class='change-img-title' style='opacity: {{titleOpacity}};'>{{mainActive.title}}</view>
       <view class='change-img-author' style='opacity: {{titleOpacity}};'>{{mainActive.author}}</view>
+      <view class='change-img-time' style='opacity: {{titleOpacity}};'>{{mainActive.time}}</view>
     </movable-view>
   </movable-area>
   <view class='change-img-area2'>
-    <view class='change-img-view2' style='transform: scale({{imgscale}}) translateY({{imgY}}rpx);'>
+    <view class='change-img-view2' style='transform: scale({{imgscale}}) translateY({{imgY}}px);'>
       <image src='{{item.img}}' wx:for="{{mainList}}" wx:key="index" class='change-img' mode="aspectFill"></image>
     </view>
+  </view>
+  <view class='overTip'>
+    这一天所有的OPPO锁屏壁纸都加载完了哦，你可以加载往上一天的锁屏壁纸，也可以重新加载这一天的锁屏壁纸哦！
+  </view>
+  <view class='bottom'>
+    Copyright © 壁纸资源来自 OPPO锁屏杂志 ，未经允许禁止商用、二次上传以及转载。
   </view>
 </view>
