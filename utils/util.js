@@ -25,10 +25,40 @@ const flatten = (arr) => {
   }
   return arr;
 }
+/**
+ * 函数节流
+ */
+const throttle = (fn, delay) => {
+  let args = arguments,
+    context = this,
+    timer = null,
+    remaining = 0,
+    previous = new Date();
 
- 
+  return function() {
+    let now = new Date();
+    remaining = now - previous;
+
+    if (remaining >= delay) {
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      fn.apply(context, args);
+      previous = now;
+    } else {
+      if (!timer) {
+        timer = setTimeout(function() {
+          fn.apply(context, args);
+          previous = new Date();
+        }, delay - remaining);
+      }
+    }
+  };
+}
 
 module.exports = {
   formatTime: formatTime,
-  flatten: flatten
+  flatten: flatten,
+  throttle: throttle
 }

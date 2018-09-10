@@ -2,6 +2,47 @@
 <view class="image-con">
   <view class='top'>
     <image src='../../image/op.png'></image>
+  </view> 
+  <view class='emoji-love-area {{loveAreaHover}}'>
+    <view class="emoji  emoji--haha {{hahaHover}}">
+      <view class="emoji__face">
+        <view class="emoji__eyes"></view>
+        <view class="emoji__mouth">
+          <view class="emoji__tongue"></view>
+        </view>
+      </view>
+    </view> 
+    <view class="emoji  emoji--like {{likeHover}}">
+      <view class="emoji__hand">
+        <view class="emoji__thumb"></view>
+      </view>
+    </view>
+    <view class="emoji  emoji--love {{loveHover}}">
+      <view class="emoji__heart"></view>
+    </view>
+  </view>
+  <view class='emoji-sad-area {{sadAreaHover}}'>
+    <view class="emoji  emoji--wow {{wowHover}}">
+      <view class="emoji__face">
+        <view class="emoji__eyebrows"></view>
+        <view class="emoji__eyes"></view>
+        <view class="emoji__mouth"></view>
+      </view>
+    </view>
+    <view class="emoji  emoji--sad {{sadHover}}">
+      <view class="emoji__face">
+        <view class="emoji__eyebrows"></view>
+        <view class="emoji__eyes"></view>
+        <view class="emoji__mouth"></view>
+      </view>
+    </view>
+    <view class="emoji  emoji--angry {{angryHover}}">
+      <view class="emoji__face">
+        <view class="emoji__eyebrows"></view>
+        <view class="emoji__eyes"></view>
+        <view class="emoji__mouth"></view>
+      </view>
+    </view>
   </view>
   <movable-area class='change-img-area'>
     <movable-view direction="all" class='change-img-view' x="{{x}}" y="{{y}}" damping="100" bindchange="movableChange" bindtouchend="movableEnd">

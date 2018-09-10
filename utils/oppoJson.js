@@ -109,7 +109,7 @@ function ArrSplit(arr, str, num) {
  * @param res OPPO数据
  */
 function oppoWallpaperJson(res) {
-  console.log(res);
+  //console.log(res);
   res.replace("图/", "图文/");
   var arr = res.split('@');
   for (var i = 0; i < arr.length; i++) {
@@ -118,7 +118,7 @@ function oppoWallpaperJson(res) {
     }
   }
   var timeTemp = arr[0].split('.VIEW')[1];
-  console.log(arr[0])
+  //console.log(arr[0])
   var timeEnd = firstNCF(timeTemp).substr(0, 8);
   var arrtemp1 = [];
   for (var i = 0; i < arr.length; i++) {
@@ -132,10 +132,10 @@ function oppoWallpaperJson(res) {
   var arrtemp4 = txtArrSplitJson(arrtemp2, 'after', 'http://magzinefs', 1, 1);
   var authorEnd = ArrSplit(arrtemp3, 'z', 0);
   var imgEndTemp = ArrSplit(arrtemp4, '?uid=', 0);
-  console.log(arrtemp1)
-  console.log(arrtemp2)
-  console.log(arrtemp3)
-  console.log(arrtemp4)
+  //console.log(arrtemp1)
+  //console.log(arrtemp2)
+  //console.log(arrtemp3)
+  //console.log(arrtemp4)
   // var uid = arrtemp4[0].split('?uid=')[1].substr(0, 32);
 
   var imgEnd = [];
