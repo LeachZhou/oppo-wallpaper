@@ -30,8 +30,13 @@ Page({
     });
 
     bmobInfo.index(function(res) {
-      // console.log(res);
-      let arr = _this.data.allResList.push(res);
+      console.log(res);
+      let obj = {};
+      obj.time = res[0].time;
+      obj.data = [...res];
+      console.log(obj)
+      let arr = [];
+      arr.push(obj);
       if (res.length) {
         _this.setData({
           loading: false,

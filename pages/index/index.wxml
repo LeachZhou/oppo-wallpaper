@@ -57,7 +57,7 @@
       <image src='{{item.img}}' wx:for="{{mainList}}" wx:key="index" class='change-img' mode="aspectFill"  lazy-load="true"></image>
     </view>
   </view>
-  <view class="loading" hidden="{{!loading}}"></view>
+  <view class="loading" hidden="{{loading}}"></view>
   <view class='calendar' bindtap="hrefUrl" data-url="../calendar/index" hover-class="navigator-hover">
     <image src='../../image/calendar.png'></image>
     日期查询
@@ -65,8 +65,13 @@
   <view class='bottomTip'>
     (〃'▽'〃) 右滑下一张
   </view>
-  <view class='overTip'>
-    这一天所有的OPPO锁屏壁纸都加载完了哦，你可以加载往上一天的锁屏壁纸，也可以重新加载这一天的锁屏壁纸哦！
+  <view class='overTip' wx:if='{{imgNumEndTips}}'>
+    <image src='../../image/juewang.jpg'></image>
+    <view class='tips-txt'>这一天所有的OPPO锁屏壁纸都加载完了哦!</view>
+    <view class='tips-btn-group'>
+      <view class='reload' bindtap='Reload'>重新加载</view>
+      <view class='reload next-load' bindtap='nextLoad'>加载上一天</view>
+    </view>
   </view>
   <view class='bottom'>
     Copyright © 壁纸资源来自 OPPO锁屏杂志，未经允许禁止商用、二次上传以及转载。

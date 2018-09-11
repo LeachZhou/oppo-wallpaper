@@ -862,7 +862,7 @@
   width: 284rpx;
   height: 50rpx;
   background: rgba(60, 219, 100, 0.384);
-  border-radius: 20rpx 0 20rpx 20rpx;
+  border-radius: 50rpx 0 50rpx 50rpx;
   color: #33c467;
   font-size: 26rpx;
   line-height: 50rpx;
@@ -871,10 +871,22 @@
 }
 
 .overTip {
-  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 30rpx;
-  width: 400rpx;
   text-align: center;
+  margin: 0 auto;
+  color: rgba(138, 138, 138, 0.774);
+  width: 600rpx;
+}
+
+.overTip image {
+  display: block;
+  width: 288rpx;
+  height: 215rpx;
+  margin: 0 auto;
 }
 
 .calendar {
@@ -884,7 +896,7 @@
   text-align: center;
   font-size: 22rpx;
   color: #33c467;
-  font-weight: bold;  
+  font-weight: bold;
   z-index: 1002;
 }
 
@@ -896,5 +908,33 @@
 }
 
 .navigator-hover {
-	background: transparent;
+  background: transparent;
+}
+
+.reload {
+  float: left;
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: rgba(60, 219, 100, 0.384);
+  border-radius: 60rpx 0 60rpx 60rpx;
+  font-weight: bold;
+  color: #33c467;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+}
+
+.next-load {
+  margin-right: 0;
+}
+
+.tips-btn-group {
+  width: 420rpx;
+  height: 60rpx;
+  margin: 0 auto;
+}
+
+.tips-txt {
+  width: 320rpx;
+  margin: 0 auto;
 }

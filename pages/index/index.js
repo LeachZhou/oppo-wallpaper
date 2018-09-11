@@ -32,7 +32,9 @@ Page({
     angryHover: '',
     sadAreaHover: '',
     loveAreaHover: '',
-    loading: true
+    loading: false,
+    imgNumEndTips: false,
+    now: 0
   },
   onLoad() {
     //获取指定DOM信息
@@ -54,32 +56,7 @@ Page({
         });
       }
     });
-    bmobInfo.index(function(res) {
-      let flatArr = [...res];
-      if (flatArr.length) {
-        _this.setData({
-          loading: false
-        });
-      }
-      _this.setData({
-        allResList: flatArr,
-        viewList: flatArr
-      });
-      // console.log(_this.data.viewList)
-      let mainListTemp = [];
-      for (let i = 0; i < 4; i++) {
-        mainListTemp.push(_this.data.allResList[i]);
-      }
-      for (let i = 0; i < 4; i++) {
-        _this.data.allResList.shift();
-      }
-      let mainActiveTemp = mainListTemp.shift();
-      _this.setData({
-        mainActive: mainActiveTemp,
-        mainList: mainListTemp
-      });
-
-    });
+    _this.fecthBmob();
   },
   onReady() {
     let _this = this;
@@ -300,6 +277,11 @@ Page({
       }, 200)
       setTimeout(() => {
         _this.data.mainList.push(_this.data.allResList.shift());
+        if (_this.data.allResList.length == 0) {
+          _this.setData({
+            imgNumEndTips: true
+          })
+        }
         _this.setData({
           mainList: _this.data.mainList
         })
@@ -312,6 +294,39 @@ Page({
     wx.navigateTo({
       url: e.currentTarget.dataset.url
     })
+  },
+  fecthBmob(day) {
+    bmobInfo.index(function(res) {
+      let flatArr = [...res];
+      _this.setData({
+        loading: true,
+        allResList: flatArr,
+        viewList: flatArr
+      });
+      let mainListTemp = [];
+      for (let i = 0; i < 4; i++) {
+        mainListTemp.push(_this.data.allResList[i]);
+      }
+      for (let i = 0; i < 4; i++) {
+        _this.data.allResList.shift();
+      }
+      let mainActiveTemp = mainListTemp.shift();
+      _this.setData({
+        mainActive: mainActiveTemp,
+        mainList: mainListTemp
+      });
+    }, day);
+  },
+  Reload() {
+    let _this = this;
+    _this.fecthBmob(_this.data.now);
+  },
+  nextLoad() {
+    let _this = this;
+    _this.setData({
+      now: _this.data.now - 1
+    })
+    _this.fecthBmob(_this.data.now);
   }
 })
 
