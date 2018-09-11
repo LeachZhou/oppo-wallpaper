@@ -1,0 +1,11 @@
+<view>
+  <view class="loading" wx:if="{{loading}}"></view>
+  <view wx:else>
+    <view wx:for="{{allResList}}" wx:key="index">
+      <view class='calendar-line'>{{item.time}}</view>
+      <view class='img-list'>
+        <image mode="aspectFill" src='{{itemImg.img}}' wx:for="{{item}}" wx:for-item="itemImg" wx:for-key="itemIndex" style="width: {{width}}px;height: {{height}}px;"></image>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,12 +1,13 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/calendar/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "OPPO壁纸",
     "navigationBarTextStyle":"black"
   }
 }

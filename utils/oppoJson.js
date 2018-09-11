@@ -110,7 +110,9 @@ function ArrSplit(arr, str, num) {
  */
 function oppoWallpaperJson(res) {
   //console.log(res);
-  res.replace("图/", "图文/");
+  if (res.match('图/')){
+    res.replace("图/", "图文/");
+  }
   var arr = res.split('@');
   for (var i = 0; i < arr.length; i++) {
     if (!arr[i].match("http://magzinefs")){

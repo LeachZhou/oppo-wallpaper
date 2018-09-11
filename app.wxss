@@ -8,3 +8,41 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: 10px solid #33c467;
+  z-index: 1002;
+}
+
+.loading:after {
+  content: '';
+  background: trasparent;
+  width: 140%;
+  height: 140%;
+  position: absolute;
+  border-radius: 100%;
+  top: -20%;
+  left: -20%;
+  opacity: 0.7;
+  box-shadow: #33c467 -4px -5px 3px -3px;
+  animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

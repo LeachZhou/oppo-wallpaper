@@ -1,8 +1,6 @@
-var Bmob = require('../../utils/Bmob-1.6.3.min.js');
-var oppoJson = require('../../utils/oppoJson.js');
+var bmobInfo = require('../../utils/bmob-info.js');
 var util = require('../../utils/util.js');
-var oppo20180906 = require('../../utils/data/oppo20180906.js');
-Bmob.initialize("6e810df9cb70d3817a543d38dce1408e", "0a764f82abda7265092c87ed19dca294");
+bmobInfo.init();
 
 //index.js
 //获取应用实例
@@ -33,13 +31,15 @@ Page({
     sadHover: '',
     angryHover: '',
     sadAreaHover: '',
-    loveAreaHover: ''
+    loveAreaHover: '',
+    loading: true
   },
-  onLoad: function() {
+  onLoad() {
     //获取指定DOM信息
     let _this = this;
-    var query = wx.createSelectorQuery();
+    let query = wx.createSelectorQuery();
     query.select('.change-img-active').boundingClientRect(function(res) {
+      // console.log(res)
       _this.setData({
         imgActiveWidth: res.width,
         imgActiveHeight: res.height
@@ -54,17 +54,18 @@ Page({
         });
       }
     });
-    const wallpaperQuery = Bmob.Query('wallpaper');
-    wallpaperQuery.equalTo("createdAt", ">", util.formatTime(new Date()).split(' ')[0] + ' 00:00:00');
-    wallpaperQuery.find().then(res => {
-      let arr = [];
-      for (let item of res) {
-        arr.push(oppoJson.oppoJson(item.wallpaperData));
+    bmobInfo.index(function(res) {
+      let flatArr = [...res];
+      if (flatArr.length) {
+        _this.setData({
+          loading: false
+        });
       }
       _this.setData({
-        allResList: util.flatten(arr),
-        viewList: util.flatten(arr)
+        allResList: flatArr,
+        viewList: flatArr
       });
+      // console.log(_this.data.viewList)
       let mainListTemp = [];
       for (let i = 0; i < 4; i++) {
         mainListTemp.push(_this.data.allResList[i]);
@@ -77,95 +78,99 @@ Page({
         mainActive: mainActiveTemp,
         mainList: mainListTemp
       });
+
     });
   },
-  onReady: function() {
+  onReady() {
     let _this = this;
     _this.setData({
       x: _this.data.screenWidth / 2 - _this.data.imgActiveWidth / 2,
       y: _this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2,
     });
   },
-  movableChange: function(e) {
+  movableChange(e) {
     let _this = this;
-    console.log(`X: ${e.detail.x}`);
-    console.log(`Y: ${e.detail.y}`);
+    // console.log(`X: ${e.detail.x}`);
+    // console.log(`Y: ${e.detail.y}`);
     let x = e.detail.x,
       y = e.detail.y;
     let a = _this.data.screenWidth - _this.data.imgActiveWidth;
     let b = _this.data.screenHeight - _this.data.imgActiveHeight;
-    if (x > a * 0.64) {
-      _this.setData({
-        loveAreaHover: 'love-area-hover'
-      })
-    } else {
-      _this.setData({
-        loveAreaHover: ''
-      })
-    }
-    if (x < a * 0.34) {
-      _this.setData({
-        sadAreaHover: 'sad-area-hover'
-      })
-    } else {
-      _this.setData({
-        sadAreaHover: ''
-      })
-    }
-    if (x < a * 0.34 && y < b * 0.246) {
-      _this.setData({
-        wowHover: 'emoji-hover'
-      })
-    } else {
-      _this.setData({
-        wowHover: ''
-      })
-    }
-    if (x < a * 0.34 && y >= b * 0.246 && y < b * 0.59) {
-      _this.setData({
-        sadHover: 'emoji-hover'
-      })
-    } else {
-      _this.setData({
-        sadHover: ''
-      })
-    }
-    if (x < a * 0.34 && y >= b * 0.59) {
-      _this.setData({
-        angryHover: 'emoji-hover'
-      })
-    } else {
-      _this.setData({
-        angryHover: ''
-      })
-    }
-    if (x > a * 0.64 && y < b * 0.246) {
-      _this.setData({
-        hahaHover: 'emoji-hover'
-      })
-    } else {
-      _this.setData({
-        hahaHover: ''
-      })
-    }
-    if (x > a * 0.64 && y >= b * 0.246 && y < b * 0.59) {
-      _this.setData({
-        likeHover: 'emoji-hover'
-      })
-    } else {
-      _this.setData({
-        likeHover: ''
-      })
-    }
-    if (x > a * 0.64 && y >= b * 0.59) {
-      _this.setData({
-        loveHover: 'emoji-hover'
-      })
-    } else {
-      _this.setData({
-        loveHover: ''
-      })
-    }
+    // if (x > a * 0.64) {
+    //   _this.setData({
+    //     loveAreaHover: 'love-area-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     loveAreaHover: ''
+    //   })
+    // }
+    // if (x < a * 0.34) {
+    //   _this.setData({
+    //     sadAreaHover: 'sad-area-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     sadAreaHover: ''
+    //   })
+    // }
+    // if (x < a * 0.34 && y < b * 0.246) {
+    //   _this.setData({
+    //     wowHover: 'emoji-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     wowHover: ''
+    //   })
+    // }
+    // if (x < a * 0.34 && y >= b * 0.246 && y < b * 0.59) {
+    //   _this.setData({
+    //     sadHover: 'emoji-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     sadHover: ''
+    //   })
+    // }
+    // if (x < a * 0.34 && y >= b * 0.59) {
+    //   _this.setData({
+    //     angryHover: 'emoji-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     angryHover: ''
+    //   })
+    // }
+    // if (x > a * 0.64 && y < b * 0.246) {
+    //   _this.setData({
+    //     hahaHover: 'emoji-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     hahaHover: ''
+    //   })
+    // }
+    // if (x > a * 0.64 && y >= b * 0.246 && y < b * 0.59) {
+    //   _this.setData({
+    //     likeHover: 'emoji-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     likeHover: ''
+    //   })
+    // }
+    // if (x > a * 0.64 && y >= b * 0.59) {
+    //   _this.setData({
+    //     loveHover: 'emoji-hover'
+    //   })
+    // } else {
+    //   _this.setData({
+    //     loveHover: ''
+    //   })
+    // }
+
+
+
     // let deg = 0; // 旋转角度
     // deg = e.detail.x / 2.5;
     // let x = 0;
@@ -191,25 +196,13 @@ Page({
       titleOpacity: titleOpacity
     })
   },
-  movableEnd: function(e) {
+  movableEnd(e) {
     let _this = this;
     //console..log(`endX: ${e.changedTouches[0].pageX}`);
     //console..log(`endY: ${e.changedTouches[0].pageY}`);
     let endX = e.changedTouches[0].pageX;
     let endY = e.changedTouches[0].pageY;
-    if (_this.data.likeHover) {
-      this.origin(this, () => {
-
-      });
-    } else if (_this.data.loveHover) {
-      this.origin(this, () => {});
-    } else if (_this.data.hahaHover) {
-      this.origin(this, () => {});
-    } else if (_this.data.wowHover) {
-      this.origin(this, () => {});
-    } else if (_this.data.sadHover) {
-      this.origin(this, () => {});
-    } else if (_this.data.angryHover) {
+    if (endX > 300) {
       this.origin(this, () => {});
     } else {
       _this.setData({
@@ -217,8 +210,28 @@ Page({
         y: _this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2
       })
     }
+    // if (_this.data.likeHover) {
+    //   this.origin(this, () => {
+
+    //   });
+    // } else if (_this.data.loveHover) {
+    //   this.origin(this, () => {});
+    // } else if (_this.data.hahaHover) {
+    //   this.origin(this, () => {});
+    // } else if (_this.data.wowHover) {
+    //   this.origin(this, () => {});
+    // } else if (_this.data.sadHover) {
+    //   this.origin(this, () => {});
+    // } else if (_this.data.angryHover) {
+    //   this.origin(this, () => {});
+    // } else {
+    //   _this.setData({
+    //     x: _this.data.screenWidth / 2 - _this.data.imgActiveWidth / 2,
+    //     y: _this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2
+    //   })
+    // }
   },
-  previewImg: function() {
+  previewImg() {
     let _this = this;
     let arr = [];
     for (let item of _this.data.viewList) {
@@ -229,38 +242,38 @@ Page({
       urls: arr // 需要预览的图片http链接列表
     })
   },
-  origin: function(_this, fn) {
+  origin(_this, fn) {
     fn();
     _this.setData({
       endOpacity: 0
     })
     if (_this.data.mainList[0]) {
       let mainActive = _this.data.mainList.shift();
-      // requestAnimationFrame(function() {
+      // requestAnimationFrame(() => {
       //   _this.setData({
       //     mainActive: mainActive,
       //     x: 0,
       //     y: 0
       //   })
       // })
-      // requestAnimationFrame(function() {
+      // requestAnimationFrame(() => {
       //   _this.setData({
       //     imgscale: 1 / 0.9,
       //     imgY: 60,
       //   })
       // })
-      // requestAnimationFrame(function() {
+      // requestAnimationFrame(() => {
       //   _this.setData({
       //     endOpacity: 1
       //   })
       // })
-      // requestAnimationFrame(function() {
+      // requestAnimationFrame(() => {
       //   _this.setData({
       //     imgscale: 1,
       //     imgY: 0,
       //   })
       // })
-      // requestAnimationFrame(function() {
+      // requestAnimationFrame(() => {
       //   _this.setData({
       //     mainList: _this.data.mainList
       //   })
@@ -294,8 +307,12 @@ Page({
     } else {
 
     }
+  },
+  hrefUrl(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
+    })
   }
-
 })
 
 //http://www.htmleaf.com/Demo/20141023275.html 洗牌图片切换特效

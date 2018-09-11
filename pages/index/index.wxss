@@ -125,13 +125,6 @@
   color: #b4b4b4;
 }
 
-.overTip {
-  display: none;
-  font-size: 30rpx;
-  width: 400rpx;
-  text-align: center;
-}
-
 .emoji {
   width: 120rpx;
   height: 120rpx;
@@ -140,7 +133,7 @@
   display: inline-block;
   border-radius: 50%;
   position: relative;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   opacity: 0.5;
 }
 
@@ -835,7 +828,7 @@
   width: 150rpx;
   z-index: 1001;
   transform: translateX(160rpx);
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .emoji-sad-area {
@@ -843,21 +836,65 @@
   left: 10rpx;
   width: 150rpx;
   z-index: 1001;
-  transform: translateX(-160rpx);  
-  transition: all .2s ease;
+  transform: translateX(-160rpx);
+  transition: all 0.2s ease;
 }
 
 .emoji-hover {
   transform: scale(1.2);
-  transition: all .2s ease;  
+  transition: all 0.2s ease;
   opacity: 1;
 }
 
 .sad-area-hover {
   transform: translateX(0rpx);
-  transition: all .2s ease;  
+  transition: all 0.2s ease;
 }
+
 .love-area-hover {
   transform: translateX(0rpx);
-  transition: all .2s ease;  
+  transition: all 0.2s ease;
+}
+
+.bottomTip {
+  position: absolute;
+  bottom: 110rpx;
+  width: 284rpx;
+  height: 50rpx;
+  background: rgba(60, 219, 100, 0.384);
+  border-radius: 20rpx 0 20rpx 20rpx;
+  color: #33c467;
+  font-size: 26rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-weight: bold;
+}
+
+.overTip {
+  display: none;
+  font-size: 30rpx;
+  width: 400rpx;
+  text-align: center;
+}
+
+.calendar {
+  position: absolute;
+  top: 30rpx;
+  right: 50rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #33c467;
+  font-weight: bold;  
+  z-index: 1002;
+}
+
+.calendar image {
+  display: block;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
+}
+
+.navigator-hover {
+	background: transparent;
 }
