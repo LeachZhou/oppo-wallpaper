@@ -54,7 +54,7 @@
   </movable-area>
   <view class='change-img-area2'>
     <view class='change-img-view2' style='transform: scale({{imgscale}}) translateY({{imgY}}px);'>
-      <image src='{{item.img}}' wx:for="{{mainList}}" wx:key="index" class='change-img' mode="aspectFill"  lazy-load="true"></image>
+      <image src='{{item.img}}' wx:for="{{mainList}}" wx:key="index" class='change-img' mode="aspectFill" lazy-load="true"></image>
     </view>
   </view>
   <view class="loading" hidden="{{loading}}"></view>
@@ -65,12 +65,14 @@
   <view class='bottomTip'>
     (〃'▽'〃) 右滑下一张
   </view>
-  <view class='overTip' wx:if='{{imgNumEndTips}}'>
-    <image src='../../image/juewang.jpg'></image>
-    <view class='tips-txt'>这一天所有的OPPO锁屏壁纸都加载完了哦!</view>
-    <view class='tips-btn-group'>
-      <view class='reload' bindtap='Reload'>重新加载</view>
-      <view class='reload next-load' bindtap='nextLoad'>加载上一天</view>
+  <view class='overTipParent' wx:if='{{imgNumEndTips}}'>
+    <view class='overTip'>
+      <image src='../../image/juewang.jpg'></image>
+      <view class='tips-txt'>这一天所有的OPPO锁屏壁纸都加载完了哦!</view>
+      <view class='tips-btn-group'>
+        <view class='reload' bindtap="Reload">重新加载</view>
+        <view class='reload next-load' bindtap="nextLoad">加载上一天</view>
+      </view>
     </view>
   </view>
   <view class='bottom'>

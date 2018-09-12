@@ -17,3 +17,23 @@
   width: 33.333%;
 }
 
+.calendarOverTip {
+  font-size: 30rpx;
+  text-align: center;
+  margin: 100rpx auto;
+  color: rgba(138, 138, 138, 0.774);
+  width: 600rpx;
+  z-index: 1003;
+}
+
+.calendarOverTip image {
+  display: block;
+  width: 288rpx;
+  height: 215rpx;
+  margin: 0 auto;
+}
+
+.tips-txt {
+  width: 320rpx;
+  margin: 0 auto;
+}

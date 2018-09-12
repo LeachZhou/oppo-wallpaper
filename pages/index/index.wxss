@@ -870,25 +870,6 @@
   font-weight: bold;
 }
 
-.overTip {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 30rpx;
-  text-align: center;
-  margin: 0 auto;
-  color: rgba(138, 138, 138, 0.774);
-  width: 600rpx;
-}
-
-.overTip image {
-  display: block;
-  width: 288rpx;
-  height: 215rpx;
-  margin: 0 auto;
-}
-
 .calendar {
   position: absolute;
   top: 30rpx;
@@ -924,13 +905,45 @@
   margin-right: 20rpx;
 }
 
+.reload:active {
+  background: rgba(60, 219, 100, 0.603);
+}
+
 .next-load {
   margin-right: 0;
 }
 
 .tips-btn-group {
   width: 420rpx;
-  height: 60rpx;
+  margin: 0 auto;
+}
+
+.overTipParent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600rpx;
+  height: 800rpx;
+  text-align: center;
+  z-index: 1003;
+}
+
+.overTip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30rpx;
+  margin: 0 auto;
+  color: rgba(138, 138, 138, 0.774);
+  width: 600rpx;
+}
+
+.overTip image {
+  display: block;
+  width: 288rpx;
+  height: 215rpx;
   margin: 0 auto;
 }
 

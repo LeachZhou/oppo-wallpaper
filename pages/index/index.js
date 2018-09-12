@@ -56,7 +56,7 @@ Page({
         });
       }
     });
-    _this.fecthBmob();
+    _this.fecthBmob(_this);
   },
   onReady() {
     let _this = this;
@@ -215,7 +215,7 @@ Page({
       arr.push(item.img);
     }
     wx.previewImage({
-      current: _this.data.mainActive, // 当前显示图片的http链接
+      current: _this.data.mainActive.img, // 当前显示图片的http链接
       urls: arr // 需要预览的图片http链接列表
     })
   },
@@ -225,7 +225,7 @@ Page({
       endOpacity: 0
     })
     if (_this.data.mainList[0]) {
-      let mainActive = _this.data.mainList.shift();
+      let mainActive = _this.data.mainList.shift() || {};
       // requestAnimationFrame(() => {
       //   _this.setData({
       //     mainActive: mainActive,
@@ -277,17 +277,14 @@ Page({
       }, 200)
       setTimeout(() => {
         _this.data.mainList.push(_this.data.allResList.shift());
-        if (_this.data.allResList.length == 0) {
-          _this.setData({
-            imgNumEndTips: true
-          })
-        }
         _this.setData({
           mainList: _this.data.mainList
         })
       }, 200)
     } else {
-
+      _this.setData({
+        imgNumEndTips: true
+      })
     }
   },
   hrefUrl(e) {
@@ -295,11 +292,10 @@ Page({
       url: e.currentTarget.dataset.url
     })
   },
-  fecthBmob(day) {
+  fecthBmob(_this, day) {
     bmobInfo.index(function(res) {
       let flatArr = [...res];
       _this.setData({
-        loading: true,
         allResList: flatArr,
         viewList: flatArr
       });
@@ -311,22 +307,42 @@ Page({
         _this.data.allResList.shift();
       }
       let mainActiveTemp = mainListTemp.shift();
+      console.log(mainActiveTemp)
+      if (!mainActiveTemp) {
+        _this.setData({
+          imgNumEndTips: true
+        });
+      } else {
+        _this.setData({
+          x: _this.data.screenWidth / 2 - _this.data.imgActiveWidth / 2,
+          y: _this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2,
+          endOpacity: 1,
+          imgNumEndTips: false,
+          mainActive: mainActiveTemp,
+          mainList: mainListTemp
+        });
+      }
       _this.setData({
-        mainActive: mainActiveTemp,
-        mainList: mainListTemp
+        loading: true
       });
     }, day);
   },
   Reload() {
     let _this = this;
-    _this.fecthBmob(_this.data.now);
+    _this.setData({
+      loading: false
+    });
+    _this.fecthBmob(_this, _this.data.now);
   },
   nextLoad() {
     let _this = this;
     _this.setData({
+      loading: false
+    });
+    _this.setData({
       now: _this.data.now - 1
     })
-    _this.fecthBmob(_this.data.now);
+    _this.fecthBmob(_this, _this.data.now);
   }
 })
 
