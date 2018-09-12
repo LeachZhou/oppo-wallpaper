@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="image-con">
   <view class='top'>
-    <image src='../../image/op.png'></image>
+    <image src='../../image/YSG-x-logo.png'></image>
   </view>
   <view class='emoji-love-area {{loveAreaHover}}'>
     <view class="emoji  emoji--haha {{hahaHover}}">

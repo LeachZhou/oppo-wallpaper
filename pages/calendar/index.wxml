@@ -1,10 +1,10 @@
 <view>
-  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad">
     <view>
       <view wx:for="{{allResList}}" wx:key="index">
         <view class='calendar-line'>{{item.time}}</view>
         <view class='img-list'>
-          <image mode="aspectFill" src='{{itemImg.img}}' data-src="{{itemImg.img}}" wx:for="{{item.data}}" wx:for-item="itemImg" wx:key="index" style="width: {{width}}px;height: {{height}}px;" bindtap="previewImg"></image>
+          <image mode="aspectFill" src='{{itemImg.img}}' data-src="{{itemImg.img}}" wx:for="{{item.data}}" wx:for-item="itemImg" wx:key="index" style="width: {{width}}px;height: {{height}}px;" bindtap="previewImg" lazy-load='true'></image>
         </view>
       </view>
     </view>

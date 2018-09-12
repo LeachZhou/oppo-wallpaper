@@ -17,7 +17,9 @@ Page({
     scrollTop: 0,
     scrollHeight: 0,
     imgNumEndTips: false,
-    day: 0
+    day: 0,
+    classNote: 'item-',          //循环节点前缀
+    count: 0,               //总共加载到多少张
   },
   onLoad() {
     let _this = this;
@@ -34,6 +36,8 @@ Page({
       }
     });
     _this.fecthBmob(_this);
+  },
+  onReady() {
   },
   fecthBmob(_this, day) {
     bmobInfo.index(function(res) {
@@ -69,11 +73,11 @@ Page({
     _this.fecthBmob(_this, _this.data.day);
   },
   //该方法绑定了页面滚动时的事件,我这里记录了当前的position.y的值,为了请求数据之后把页面定位到这里来。
-  scroll(event) {
-    this.setData({
-      scrollTop: event.detail.scrollTop
-    });
-  },
+  // scroll(event) {
+  //   this.setData({
+  //     scrollTop: event.detail.scrollTop
+  //   });
+  // },
   //该方法绑定了页面滑动到顶部的事件,然后做上拉刷新
   topLoad(event) {
     var _this = this;

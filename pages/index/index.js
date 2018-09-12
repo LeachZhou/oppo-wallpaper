@@ -39,14 +39,6 @@ Page({
   onLoad() {
     //获取指定DOM信息
     let _this = this;
-    let query = wx.createSelectorQuery();
-    query.select('.change-img-active').boundingClientRect(function(res) {
-      // console.log(res)
-      _this.setData({
-        imgActiveWidth: res.width,
-        imgActiveHeight: res.height
-      });
-    }).exec();
     //获取屏幕宽高
     wx.getSystemInfo({
       success: function(res) {
@@ -56,14 +48,20 @@ Page({
         });
       }
     });
+    let query = wx.createSelectorQuery();
+    query.select('.change-img-active').boundingClientRect(function (res) {
+      _this.setData({
+        imgActiveWidth: res.width,
+        imgActiveHeight: res.height,
+        x: _this.data.screenWidth / 2 - res.width / 2,
+        y: _this.data.screenHeight / 2 - res.height / 2
+      });
+    }).exec();
     _this.fecthBmob(_this);
   },
   onReady() {
     let _this = this;
-    _this.setData({
-      x: _this.data.screenWidth / 2 - _this.data.imgActiveWidth / 2,
-      y: _this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2,
-    });
+    
   },
   movableChange(e) {
     let _this = this;
@@ -259,28 +257,20 @@ Page({
         _this.setData({
           mainActive: mainActive,
           x: _this.data.screenWidth / 2 - _this.data.imgActiveWidth / 2,
-          y: _this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2
-        })
-      }, 0)
-      setTimeout(() => {
-        this.setData({
+          y: _this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2,
           imgscale: 1 / 0.9,
           imgY: 30
         })
-      }, 100)
-      setTimeout(() => {
-        _this.setData({
-          endOpacity: 1,
-          imgscale: 1,
-          imgY: 0
-        })
-      }, 200)
+      }, 0)
       setTimeout(() => {
         _this.data.mainList.push(_this.data.allResList.shift());
         _this.setData({
+          endOpacity: 1,
+          imgscale: 1,
+          imgY: 0,
           mainList: _this.data.mainList
         })
-      }, 200)
+      }, 600)
     } else {
       _this.setData({
         imgNumEndTips: true
@@ -307,7 +297,6 @@ Page({
         _this.data.allResList.shift();
       }
       let mainActiveTemp = mainListTemp.shift();
-      console.log(mainActiveTemp)
       if (!mainActiveTemp) {
         _this.setData({
           imgNumEndTips: true
@@ -320,6 +309,16 @@ Page({
           imgNumEndTips: false,
           mainActive: mainActiveTemp,
           mainList: mainListTemp
+        }, () => {
+          let query = wx.createSelectorQuery();
+          query.select('.change-img-active').boundingClientRect(function(res) {
+            _this.setData({
+              imgActiveWidth: res.width,
+              imgActiveHeight: res.height,
+              x: _this.data.screenWidth / 2 - res.width / 2,
+              y: _this.data.screenHeight / 2 - res.height / 2
+            });
+          }).exec();
         });
       }
       _this.setData({

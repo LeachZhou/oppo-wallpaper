@@ -112,8 +112,8 @@
 
 .top image {
   display: block;
-  width: 300rpx;
-  height: 92rpx;
+  width: 240rpx;
+  height: 84rpx;
 }
 
 .bottom {
