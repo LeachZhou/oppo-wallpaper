@@ -21,7 +21,7 @@
   font-size: 30rpx;
   text-align: center;
   margin: 100rpx auto;
-  color: rgba(138, 138, 138, 0.774);
+  color: #949494;
   width: 600rpx;
   z-index: 1003;
 }

@@ -44,7 +44,7 @@
       </view>
     </view>
   </view>
-  <movable-area class='change-img-area'>
+  <movable-area class='change-img-area' style='opacity: {{initOpacity}};'>
     <movable-view direction="all" class='change-img-view' x="{{x}}" y="{{y}}" damping="100" bindchange="movableChange" bindtouchend="movableEnd">
       <image src='{{mainActive.img}}' class='change-img change-img-active' mode="aspectFill" animation="{{animationData}}" style='opacity: {{endOpacity}};' bindtap="previewImg" lazy-load="true"></image>
       <view class='change-img-title' style='opacity: {{titleOpacity}};'>{{mainActive.title}}</view>
@@ -52,15 +52,39 @@
       <view class='change-img-time' style='opacity: {{titleOpacity}};'>{{mainActive.time}}</view>
     </movable-view>
   </movable-area>
-  <view class='change-img-area2'>
+  <view class='change-img-area2' style='opacity: {{initOpacity}};'>
     <view class='change-img-view2' style='transform: scale({{imgscale}}) translateY({{imgY}}px);'>
       <image src='{{item.img}}' wx:for="{{mainList}}" wx:key="index" class='change-img' mode="aspectFill" lazy-load="true"></image>
     </view>
   </view>
   <view class="loading" hidden="{{loading}}"></view>
-  <view class='calendar' bindtap="hrefUrl" data-url="../calendar/index" hover-class="navigator-hover">
-    <image src='../../image/calendar.png'></image>
-    日期查询
+  <view class='menu-group'>
+    <view class='menu' hover-class="navigator-hover" bindtap='menuTap'>
+      <image src='../../image/menu.png'></image>
+    </view>
+    <view class='menu-popup' style="display: {{menuPopup ? 'none' : 'block' }};">
+      <view bindtap="hrefUrl" data-url="../calendar/index">
+        <image src='../../image/calendar.png'></image>
+        日期查找
+      </view>
+      <view>
+        <button open-type="contact" class='originalContact' bindtap="menuTap" />
+        <image src='../../image/contact.png'></image>
+        商务合作
+      </view>
+      <view bindtap="hrefUrl" data-url="../update/index">
+        <image src='../../image/update.png'></image>
+        更新记录
+      </view>
+      <view bindtap="hrefUrl" data-url="../design/index">
+        <image src='../../image/design.png'></image>
+        设计指南
+      </view>
+      <view bindtap="hrefUrl" data-url="../about/index">
+        <image src='../../image/about.png'></image>
+        关于我们
+      </view>
+    </view>
   </view>
   <view class='bottomTip'>
     (〃'▽'〃) 右滑下一张

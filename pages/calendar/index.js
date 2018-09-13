@@ -20,8 +20,7 @@ Page({
     bg: '#000000'
   },
   onLoad() {
-    let _this = this;
-    _this.setNavigationBarTitle();
+    let _this = this; 
     //获取屏幕宽高
     wx.getSystemInfo({
       success: function(res) {
@@ -100,11 +99,6 @@ Page({
   },
   navigateBack() {
     wx.navigateBack();
-  },
-  setNavigationBarTitle() {
-    wx.setNavigationBarTitle({
-      title: '日期查询'
-    })
   },
   previewImg(e) {
     let _this = this;

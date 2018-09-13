@@ -34,7 +34,9 @@ Page({
     loveAreaHover: '',
     loading: false,
     imgNumEndTips: false,
-    now: 0
+    now: 0,
+    initOpacity: 0,
+    menuPopup: true
   },
   onLoad() {
     //获取指定DOM信息
@@ -49,7 +51,7 @@ Page({
       }
     });
     let query = wx.createSelectorQuery();
-    query.select('.change-img-active').boundingClientRect(function (res) {
+    query.select('.change-img-active').boundingClientRect(function(res) {
       _this.setData({
         imgActiveWidth: res.width,
         imgActiveHeight: res.height,
@@ -57,11 +59,15 @@ Page({
         y: _this.data.screenHeight / 2 - res.height / 2
       });
     }).exec();
-    _this.fecthBmob(_this);
+    _this.fecthBmob(_this, () => {
+      _this.setData({
+        loading: true,
+        initOpacity: 1
+      });
+    });
   },
   onReady() {
     let _this = this;
-    
   },
   movableChange(e) {
     let _this = this;
@@ -162,7 +168,7 @@ Page({
     //   animationData: animation.export()
     // })
     let titleOpacity;
-    if (e.detail.x == (_this.data.screenWidth / 2 - _this.data.imgActiveWidth / 2) && e.detail.y == (_this.data.screenHeight / 2 - _this.data.imgActiveHeight / 2)) {
+    if (e.detail.x == _this.data.x && e.detail.y == _this.data.y) {
       titleOpacity = 1;
     } else {
       titleOpacity = 0;
@@ -278,11 +284,13 @@ Page({
     }
   },
   hrefUrl(e) {
+    let _this = this;
+    _this.menuTap();
     wx.navigateTo({
       url: e.currentTarget.dataset.url
     })
   },
-  fecthBmob(_this, day) {
+  fecthBmob(_this, fn, day) {
     bmobInfo.index(function(res) {
       let flatArr = [...res];
       _this.setData({
@@ -321,27 +329,47 @@ Page({
           }).exec();
         });
       }
-      _this.setData({
-        loading: true
-      });
+      fn();
     }, day);
   },
   Reload() {
     let _this = this;
     _this.setData({
-      loading: false
+      loading: false,
+      initOpacity: 0
     });
-    _this.fecthBmob(_this, _this.data.now);
+    _this.fecthBmob(_this, () => {
+      _this.setData({
+        loading: true,
+        initOpacity: 1,
+        titleOpacity: 1
+      });
+    }, _this.data.now);
   },
   nextLoad() {
     let _this = this;
     _this.setData({
-      loading: false
+      loading: false,
+      initOpacity: 0
     });
     _this.setData({
       now: _this.data.now - 1
     })
-    _this.fecthBmob(_this, _this.data.now);
+    _this.fecthBmob(_this, () => {
+      _this.setData({
+        loading: true,
+        initOpacity: 1,
+        titleOpacity: 1
+      });
+    }, _this.data.now);
+  },
+  menuTap() {
+    let _this = this;
+    _this.data.menuPopup ? _this.setData({
+      menuPopup: false
+    }) : _this.setData({
+      menuPopup: true
+    })
   }
 })
 

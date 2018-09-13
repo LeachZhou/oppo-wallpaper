@@ -14,6 +14,7 @@
   height: 100vh;
   text-align: center;
   z-index: 1000;
+  transition: opacity 0.6s ease;
 }
 
 .change-img-area2 {
@@ -25,6 +26,7 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+  transition: opacity 0.7s ease;
 }
 
 .change-img-view {
@@ -861,31 +863,101 @@
   bottom: 110rpx;
   width: 284rpx;
   height: 50rpx;
-  background: rgba(60, 219, 100, 0.384);
+  background: #fff;
   border-radius: 50rpx 0 50rpx 50rpx;
-  color: #33c467;
+  color: #1f81e3;
   font-size: 26rpx;
   line-height: 50rpx;
   text-align: center;
   font-weight: bold;
+  box-shadow: 0 0 40rpx #c6d8ff;
 }
 
-.calendar {
+.menu-group {
   position: absolute;
-  top: 30rpx;
+  top: 34rpx;
   right: 50rpx;
+}
+
+.menu {
+  position: absolute;
+  top: 0rpx;
+  right: 0rpx;
   text-align: center;
   font-size: 22rpx;
-  color: #33c467;
+  color: #1f81e3;
   font-weight: bold;
   z-index: 1002;
+  box-shadow: 0 0 40rpx #c6d8ff;
+  padding: 8rpx 8rpx 10rpx 10rpx;
+  border-radius: 20rpx;
 }
 
-.calendar image {
+.menu image {
   display: block;
   margin: 0 auto;
   width: 32px;
   height: 32px;
+}
+
+.menu-popup {
+  display: none;
+  position: absolute;
+  right: 30rpx;
+  top: 105rpx;
+  width: 220rpx;
+  background: #fff;
+  box-shadow: 0 0 40rpx #c6d8ff;
+  border-radius: 20rpx 0 20rpx 20rpx;
+  padding: 10rpx 0;
+  z-index: 1004;
+  animation: in 600ms linear;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes in {
+  from {
+    right: 30rpx;
+    opacity: 0;
+  }
+
+  to {
+    right: 0rpx;
+    opacity: 1;
+  }
+}
+
+.menu-popup view {
+  position: relative;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  color: #1f81e3;
+  padding: 10rpx 20rpx;
+  text-align: center;
+}
+
+.menu-popup view:active {
+  background: hsla(214, 58%, 70%, 0.219);
+}
+
+.menu-popup view image {
+  float: left;
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  font-size: 30rpx;
+  margin-right: 10rpx;
+}
+
+.originalContact {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 70rpx;
 }
 
 .navigator-hover {
@@ -897,16 +969,17 @@
   width: 200rpx;
   height: 60rpx;
   line-height: 60rpx;
-  background: rgba(60, 219, 100, 0.384);
+  background: #fff;
   border-radius: 60rpx 0 60rpx 60rpx;
   font-weight: bold;
-  color: #33c467;
+  color: #1f81e3;
   margin-top: 20rpx;
   margin-right: 20rpx;
+  box-shadow: 0 0 40rpx #c6d8ff;
 }
 
 .reload:active {
-  background: rgba(60, 219, 100, 0.603);
+  background: rgba(57, 120, 255, 0.603);
 }
 
 .next-load {
@@ -927,6 +1000,7 @@
   height: 800rpx;
   text-align: center;
   z-index: 1003;
+  background: #fff;
 }
 
 .overTip {
@@ -936,7 +1010,7 @@
   transform: translate(-50%, -50%);
   font-size: 30rpx;
   margin: 0 auto;
-  color: rgba(138, 138, 138, 0.774);
+  color: rgba(57, 120, 255, 0.704);
   width: 600rpx;
 }
 
@@ -950,4 +1024,22 @@
 .tips-txt {
   width: 320rpx;
   margin: 0 auto;
+}
+
+.about {
+  position: absolute;
+  bottom: 30rpx;
+  right: 50rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #1f81e3;
+  font-weight: bold;
+  z-index: 1002;
+}
+
+.about image {
+  display: block;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
 }
