@@ -1,5 +1,5 @@
-var bmobInfo = require('../../utils/bmob-info.js');
-var util = require('../../utils/util.js');
+let bmobInfo = require('../../utils/bmob-info.js');
+let util = require('../../utils/util.js');
 bmobInfo.init();
 
 //index.js
@@ -13,16 +13,15 @@ Page({
     screenHeight: '',
     width: 0,
     height: 0,
-    loading: true,
     scrollTop: 0,
     scrollHeight: 0,
     imgNumEndTips: false,
     day: 0,
-    classNote: 'item-',          //循环节点前缀
-    count: 0,               //总共加载到多少张
+    bg: '#000000'
   },
   onLoad() {
     let _this = this;
+    _this.setNavigationBarTitle();
     //获取屏幕宽高
     wx.getSystemInfo({
       success: function(res) {
@@ -35,18 +34,27 @@ Page({
         });
       }
     });
-    _this.fecthBmob(_this);
+    wx.showLoading({
+      title: 'Loading...',
+      mask: 'true',
+      duration: 1000
+    })
+    _this.fecthBmob(_this, () => {
+      wx.hideLoading();
+    }, 0, true);
   },
-  onReady() {
-  },
-  fecthBmob(_this, day) {
+  onReady() {},
+  fecthBmob(_this, fn, day, PullDown) {
     bmobInfo.index(function(res) {
       // console.log(res);
       if (res.length) {
         let arr = [];
-        if (_this.data.allResList.length) {
-          for (let item of _this.data.allResList) {
-            arr.push(item);
+        let isPullDown = PullDown || false;
+        if (!isPullDown) {
+          if (_this.data.allResList.length) {
+            for (let item of _this.data.allResList) {
+              arr.push(item);
+            }
           }
         }
         let newObj = {};
@@ -54,7 +62,6 @@ Page({
         newObj.data = [...res];
         arr.push(newObj);
         _this.setData({
-          loading: false,
           allResList: arr
         });
       } else {
@@ -62,30 +69,34 @@ Page({
           imgNumEndTips: true
         });
       }
+      fn();
     }, day);
   },
-  //页面滑动到底部
-  bindDownLoad() {
-    var _this = this;
-    _this.setData({
-      day: _this.data.day - 1
-    });
-    _this.fecthBmob(_this, _this.data.day);
+  onPullDownRefresh() {
+    let _this = this;
+    _this.fecthBmob(_this, () => {
+      wx.stopPullDownRefresh();
+    }, 0, true);
   },
-  //该方法绑定了页面滚动时的事件,我这里记录了当前的position.y的值,为了请求数据之后把页面定位到这里来。
-  // scroll(event) {
-  //   this.setData({
-  //     scrollTop: event.detail.scrollTop
-  //   });
-  // },
-  //该方法绑定了页面滑动到顶部的事件,然后做上拉刷新
-  topLoad(event) {
-    var _this = this;
-    _this.setData({
-      list: [],
-      scrollTop: 0
-    });
-    _this.fecthBmob(_this);
+  onReachBottom() {
+    let _this = this;
+    let _lastTime = null,
+      gapTime = 1500;
+    let _nowTime = +new Date()
+    if (_nowTime - _lastTime > gapTime || !_lastTime) {
+      wx.showLoading({
+        title: 'Loading...',
+        mask: 'true',
+        duration: 1000
+      })
+      _this.setData({
+        day: _this.data.day - 1
+      });
+      _this.fecthBmob(_this, () => {
+        wx.hideLoading();
+      }, _this.data.day);
+      _lastTime = _nowTime
+    }
   },
   navigateBack() {
     wx.navigateBack();

@@ -5,11 +5,15 @@ Page({
   data: {
     logs: []
   },
-  onLoad: function () {
+  onLoad: function() {
     this.setData({
       logs: (wx.getStorageSync('logs') || []).map(log => {
         return util.formatTime(new Date(log))
       })
     })
-  }
+  },
+  onPullDownRefresh: function() {
+    console.log(1)
+    wx.stopPullDownRefresh();
+  },
 })

@@ -28,34 +28,23 @@ const flatten = (arr) => {
 /**
  * 函数节流
  */
-const throttle = (fn, delay) => {
-  let args = arguments,
-    context = this,
-    timer = null,
-    remaining = 0,
-    previous = new Date();
+const throttle = (fn, gapTime) => {
+  if (gapTime == null || gapTime == undefined) {
+    gapTime = 1500
+  }
 
+  let _lastTime = null
+
+  // 返回新的函数
   return function() {
-    let now = new Date();
-    remaining = now - previous;
-
-    if (remaining >= delay) {
-      if (timer) {
-        clearTimeout(timer);
-      }
-
-      fn.apply(context, args);
-      previous = now;
-    } else {
-      if (!timer) {
-        timer = setTimeout(function() {
-          fn.apply(context, args);
-          previous = new Date();
-        }, delay - remaining);
-      }
+    let _nowTime = +new Date()
+    if (_nowTime - _lastTime > gapTime || !_lastTime) {
+      fn.apply(this, arguments) //将this和参数传给原函数
+      _lastTime = _nowTime
     }
-  };
+  }
 }
+
 
 module.exports = {
   formatTime: formatTime,

@@ -43,6 +43,20 @@ module.exports = {
           }
         }
         fn(flatArr);
+      }).catch(err => {
+        console.log(err)
+        wx.showToast({
+          title: '请求失败',
+          icon: 'none',
+          duration: 5000
+        })
+      })
+    }).catch(err => {
+      console.log(err)
+      wx.showToast({
+        title: '请求失败',
+        icon: 'none',
+        duration: 5000
       })
     })
 
