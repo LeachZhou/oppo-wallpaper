@@ -939,7 +939,7 @@
 }
 
 .menu-popup view:active {
-  background: hsla(214, 58%, 70%, 0.219);
+  background: #1f81e33f;
 }
 
 .menu-popup view image {

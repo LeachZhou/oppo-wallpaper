@@ -12,7 +12,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.5",
+	"libVersion": "2.3.0",
 	"appid": "wx0f6261f510d139f2",
 	"projectname": "yishibizhi",
 	"isGameTourist": false,
