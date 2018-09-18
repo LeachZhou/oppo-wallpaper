@@ -1106,7 +1106,7 @@
 
 .shareCanvas .masking canvas {
   width: 560rpx;
-  height: 800rpx;
+  min-height: 800rpx;
   margin: 0 auto;
   z-index: 10000;
   text-align: center;

@@ -181,6 +181,38 @@ Page({
       }
     }
   },
+  /**
+   * 圆角矩形
+   * x 矩形的x坐标
+   * y 矩形的y坐标
+   * w 矩形的宽
+   * h 矩形的高
+   * r 矩形的圆角度数
+   */
+  roundRect(ctx, x, y, w, h, r) {
+    // 开始绘制
+    ctx.beginPath();
+    this.ctx.setFillStyle('#ffffff');
+    ctx.arc(x + r, y + r, r, Math.PI, Math.PI * 1.5);
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.lineTo(x + w, y + r);
+    ctx.arc(x + w - r, y + r, r, Math.PI * 1.5, Math.PI * 2);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.lineTo(x + w - r, y + h);
+    ctx.arc(x + w - r, y + h - r, r, 0, Math.PI * 0.5);
+    ctx.lineTo(x + r, y + h);
+    ctx.lineTo(x, y + h - r);
+    ctx.arc(x + r, y + h - r, r, Math.PI * 0.5, Math.PI);
+    ctx.lineTo(x, y + r);
+    ctx.lineTo(x + r, y);
+    this.ctx.fill();
+    this.ctx.setGlobalAlpha(0.04);
+    this.ctx.setShadow(0, 2, 4, '#000000');
+    ctx.closePath();
+    this.ctx.draw(true);
+    return this;
+  },
   friends() {
     let _this = this;
     let rpx = _this.data.rpx;
@@ -192,10 +224,19 @@ Page({
       mask: true
     })
     let ctx = wx.createCanvasContext('canvas');
-    // ctx.drawImage(_this.data.mainList[0].img, 0, 0, 320, 800);
+
     ctx.drawImage(_this.data.mainList[0].img, 0, 1920 / 10, 1235, 2195, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
+
+    ctx.save()
+    ctx.beginPath()
+    ctx.arc(50, 50, 25, 0, 2 * Math.PI)
+    ctx.clip()
+    ctx.drawImage(_this.data.mainList[1].img, 25, 25)
+    ctx.restore()
+
+
     ctx.setFontSize(12);
-    ctx.setFillStyle('transparent'); //设置填充色
+    ctx.setFillStyle('transparent'); //设置填充色s
     ctx.setTextAlign('center'); //用于设置文字的对齐
     ctx.fillRect(10, 10, 150, 75); //填充一个矩形
     ctx.fillText(_this.data.mainList[0].title, 20, 1900); //在画布上绘制被填充的文本
