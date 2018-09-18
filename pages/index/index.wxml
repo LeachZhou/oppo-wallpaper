@@ -3,58 +3,26 @@
   <view class='top'>
     <image src='../../image/YSG-x-logo.png'></image>
   </view>
-  <view class='emoji-love-area {{loveAreaHover}}'>
-    <view class="emoji  emoji--haha {{hahaHover}}">
-      <view class="emoji__face">
-        <view class="emoji__eyes"></view>
-        <view class="emoji__mouth">
-          <view class="emoji__tongue"></view>
-        </view>
-      </view>
-    </view>
-    <view class="emoji  emoji--like {{likeHover}}">
-      <view class="emoji__hand">
-        <view class="emoji__thumb"></view>
-      </view>
-    </view>
-    <view class="emoji  emoji--love {{loveHover}}">
-      <view class="emoji__heart"></view>
-    </view>
-  </view>
-  <view class='emoji-sad-area {{sadAreaHover}}'>
-    <view class="emoji  emoji--wow {{wowHover}}">
-      <view class="emoji__face">
-        <view class="emoji__eyebrows"></view>
-        <view class="emoji__eyes"></view>
-        <view class="emoji__mouth"></view>
-      </view>
-    </view>
-    <view class="emoji  emoji--sad {{sadHover}}">
-      <view class="emoji__face">
-        <view class="emoji__eyebrows"></view>
-        <view class="emoji__eyes"></view>
-        <view class="emoji__mouth"></view>
-      </view>
-    </view>
-    <view class="emoji  emoji--angry {{angryHover}}">
-      <view class="emoji__face">
-        <view class="emoji__eyebrows"></view>
-        <view class="emoji__eyes"></view>
-        <view class="emoji__mouth"></view>
-      </view>
-    </view>
-  </view>
-  <movable-area class='change-img-area' style='opacity: {{initOpacity}};'>
-    <movable-view direction="all" class='change-img-view' x="{{x}}" y="{{y}}" damping="100" bindchange="movableChange" bindtouchend="movableEnd">
-      <image src='{{mainActive.img}}' class='change-img change-img-active' mode="aspectFill" animation="{{animationData}}" style='opacity: {{endOpacity}};' bindtap="previewImg" lazy-load="true"></image>
-      <view class='change-img-title' style='opacity: {{titleOpacity}};'>{{mainActive.title}}</view>
-      <view class='change-img-author' style='opacity: {{titleOpacity}};'>{{mainActive.author}}</view>
-      <view class='change-img-time' style='opacity: {{titleOpacity}};'>{{mainActive.time}}</view>
-    </movable-view>
-  </movable-area>
   <view class='change-img-area2' style='opacity: {{initOpacity}};'>
     <view class='change-img-view2' style='transform: scale({{imgscale}}) translateY({{imgY}}px);'>
-      <image src='{{item.img}}' wx:for="{{mainList}}" wx:key="index" class='change-img' mode="aspectFill" lazy-load="true"></image>
+      <view wx:for="{{mainList}}" wx:key="index" class='change-img-for'>
+        <button class='share-btn' open-type="share" plain='true'></button>
+        <view class='share'>
+          <image src='../../image/share.png'></image>
+        </view>
+        <view class='f' bindtap='friends'>
+          <image src='../../image/f.png'></image>
+        </view>
+        <image src='{{item.img}}' class='change-img' mode="aspectFill" lazy-load="true" bindtouchstart='slideStart' bindtouchend='slideEnd' bindtap='previewImg'></image>
+        <view class='change-img-title'>{{item.title}}</view>
+        <view class='change-img-author'>{{item.author}}</view>
+        <view class='change-img-time'>{{item.time}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='shareCanvas' style="display: {{shareCanvas?'block':'none'}};">
+    <view class='masking' bindtap='maskingTap'>
+      <canvas canvas-id='canvas' class='canvas' catchtap='return;'/>
     </view>
   </view>
   <view class="loading" hidden="{{loading}}"></view>

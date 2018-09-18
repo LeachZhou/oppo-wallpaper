@@ -40,34 +40,39 @@
   transition: all 0.6s ease;
 }
 
-.change-img {
+.change-img-for {
   position: absolute;
   top: 0;
   left: 0;
+  width: 560rpx;
+  height: 800rpx;
+}
+
+.change-img {
   width: 100%;
   height: 100%;
   border-radius: 40rpx;
   transform-origin: 50% 0;
 }
 
-.change-img-active {
-  z-index: 100;
+.change-img-area2 .change-img-for:nth-of-type(1) {
+  z-index: 99;
   transform: scale(1) translateY(0);
 }
 
-.change-img-area2 .change-img:nth-of-type(1) {
-  z-index: 99;
-  transform: scale(0.9) translateY(-10px);
-}
-
-.change-img-area2 .change-img:nth-of-type(2) {
+.change-img-area2 .change-img-for:nth-of-type(2) {
   z-index: 98;
-  transform: scale(0.8) translateY(-20px);
+  transform: scale(0.9) translateY(-60rpx);
 }
 
-.change-img-area2 .change-img:nth-of-type(3) {
+.change-img-area2 .change-img-for:nth-of-type(3) {
   z-index: 97;
-  transform: scale(0.7) translateY(-30px);
+  transform: scale(0.8) translateY(-136rpx);
+}
+
+.change-img-area2 .change-img-for:nth-of-type(4) {
+  z-index: 96;
+  transform: scale(0.7) translateY(-232rpx);
 }
 
 .change-img-title {
@@ -891,6 +896,7 @@
   box-shadow: 0 0 40rpx #c6d8ff;
   padding: 8rpx 8rpx 10rpx 10rpx;
   border-radius: 20rpx;
+  background: #fff;
 }
 
 .menu image {
@@ -1042,4 +1048,66 @@
   margin: 0 auto;
   width: 32px;
   height: 32px;
+}
+
+.share-btn {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  width: 32px;
+  height: 32px;
+  border-radius: 20rpx;
+  opacity: 0;
+  z-index: 999;
+}
+
+.share {
+  position: absolute;
+  right: 30rpx;
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.384);
+  padding: 10rpx;
+  border-radius: 20rpx;
+  top: 30rpx;
+}
+
+.f {
+  position: absolute;
+  right: 30rpx;
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.384);
+  padding: 10rpx;
+  border-radius: 20rpx;
+  top: 120rpx;
+  z-index: 999;
+}
+
+.share image, .f image {
+  width: 100%;
+  height: 100%;
+}
+
+.shareCanvas {
+  width: 100%;
+  height: 100vh;
+  z-index: 2000;
+}
+
+.shareCanvas .masking {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.349);
+  display: flex;
+  align-items: center;
+  z-index: 9999;
+}
+
+.shareCanvas .masking canvas {
+  width: 560rpx;
+  height: 800rpx;
+  margin: 0 auto;
+  z-index: 10000;
+  text-align: center;
 }
