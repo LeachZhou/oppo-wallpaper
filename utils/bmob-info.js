@@ -31,10 +31,10 @@ module.exports = {
               let index = flatArr[i].title.indexOf('R'); //获取R的位置
               if (flatArr[i].title[index + 2]) { //R往后是否有2个字符的位置
                 // console.log(flatArr[i].title[index] + flatArr[i].title[index + 1]);
-                if ((flatArr[i].title[index + 2]).match(/[\u4e00-\u9fa5]/)) { //往后的2个位置是否是汉字
+                // if ((flatArr[i].title[index + 2]).match(/[\u4e00-\u9fa5]/)) { //往后的2个位置是否是汉字
                   let str = flatArr[i].title.substr(0, index) + ' ' + flatArr[i].title.substr(index + 2); //如果是汉字把R和R后面的一个字符删掉，前后进行拼接
                   flatArr[i].title = str;
-                }
+                // }
               }
               if (flatArr[i].title[flatArr[i].title.length - 1] == 'R') {
                 flatArr[i].title = flatArr[i].title.substr(0, index - 1);

@@ -56,7 +56,7 @@
       </view>
     </view>
   </view>
-  <text class='left-btn' style="transform: translateX({{currentImg==0?'0':'-80'}}rpx);">加载下一天</text>
+  <text class='left-btn' wx:if='{{leftBtnHide}}' style="transform: translateX({{currentImg==0?'0':'-80'}}rpx);">加载下一天</text>
   <text class='right-btn' style="transform: translateX({{currentImg==(allResListLength-1)?'0':'80'}}rpx);">加载上一天</text>
   <view class='bottomTip'>
     (〃'▽'〃) 左滑下一张

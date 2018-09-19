@@ -32,8 +32,8 @@ Page({
     previewCurrentImg: 0,
     swiperCurrent: 0,
     preIndex: 0,
-    swiperError: 0
-
+    swiperError: 0,
+    leftBtnHide: false
   },
   onLoad() {
     //获取指定DOM信息
@@ -50,8 +50,6 @@ Page({
     });
     _this.fecthBmob(_this, (res) => {
       _this.setData({
-        loading: true,
-        initOpacity: 1,
         swiperCurrent: 0
       }, () => {
         app.loadend();
@@ -116,7 +114,8 @@ Page({
       previewCurrentImg: _this.data.currentImg
     })
     _this.setData({
-      currentImg: e.detail.current
+      currentImg: e.detail.current,
+      leftBtnHide: true
     })
   },
   previewImg(e) {
@@ -159,24 +158,34 @@ Page({
       fn(res);
     }, day);
   },
-  previousLoad() {
+  previousLoad() { //加载下一天
     let _this = this;
-    _this.setData({
-      loading: false,
-      initOpacity: 0
-    });
     _this.fecthBmob(_this, (res) => {
       if (res.length) {
         _this.setData({
           now: _this.data.now + 1
         });
       }
-      _this.setData({
-        swiperCurrent: 0,
-        currentImg: 0
-      }, () => {
-        app.loadend();
-      });
+      if (_this.data.swiperCurrent != 0) {
+        _this.setData({
+          swiperCurrent: 0,
+          currentImg: 0
+        }, () => {
+          app.loadend();
+        });
+      } else {
+        if (res.lengh) {
+          _this.setData({
+            currentImg: 0
+          }, () => {
+            app.loadend();
+          });
+        } else {
+          _this.setData({
+            currentImg: 0
+          });
+        }
+      }
     }, _this.data.now + 1);
   },
   nextLoad() {
