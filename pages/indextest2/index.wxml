@@ -1,0 +1,73 @@
+<!--index.wxml-->
+<view class="image-con">
+  <view class='top'>
+    <image src='../../image/YSG-x-logo.png'></image>
+  </view>
+  <view class='change-img-area2' style='opacity: {{initOpacity}};'>
+    <view class='change-img-view2' style='transform: scale({{imgscale}}) translateY({{imgY}}px);'>
+      <view wx:for="{{mainList}}" wx:key="index" class='change-img-for'>
+        <button class='share-btn' open-type="share" plain='true'></button>
+        <view class='share'>
+          <image src='../../image/share.png'></image>
+        </view>
+        <view class='f' bindtap='friends'>
+          <image src='../../image/f.png'></image>
+        </view>
+        <image src='{{item.img}}' class='change-img' mode="aspectFill" lazy-load="true" bindtouchstart='slideStart' bindtouchend='slideEnd' bindtap='previewImg'></image>
+        <view class='change-img-title'>{{item.title}}</view>
+        <view class='change-img-author'>{{item.author}}</view>
+        <view class='change-img-time'>{{item.time}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='shareCanvas' style="display: {{shareCanvas?'block':'none'}};">
+    <view class='masking' bindtap='maskingTap'>
+      <canvas canvas-id='canvas' class='canvas' catchtap='return;'/>
+    </view>
+  </view>
+  <view class="loading" hidden="{{loading}}"></view>
+  <view class='menu-group'>
+    <view class='menu' hover-class="navigator-hover" bindtap='menuTap'>
+      <image src='../../image/menu.png'></image>
+    </view>
+    <view class='menu-popup' style="display: {{menuPopup ? 'none' : 'block' }};">
+      <view bindtap="hrefUrl" data-url="../calendar/index">
+        <image src='../../image/calendar.png'></image>
+        日期查找
+      </view>
+      <view>
+        <button open-type="contact" class='originalContact' bindtap="menuTap" />
+        <image src='../../image/contact.png'></image>
+        商务合作
+      </view>
+      <view bindtap="hrefUrl" data-url="../update/index">
+        <image src='../../image/update.png'></image>
+        更新记录
+      </view>
+      <view bindtap="hrefUrl" data-url="../design/index">
+        <image src='../../image/design.png'></image>
+        设计指南
+      </view>
+      <view bindtap="hrefUrl" data-url="../about/index">
+        <image src='../../image/about.png'></image>
+        关于我们
+      </view>
+    </view>
+  </view>
+  <view class='bottomTip'>
+    (〃'▽'〃) 右滑下一张
+  </view>
+  <view class='overTipParent' wx:if='{{imgNumEndTips}}'>
+    <view class='overTip'>
+      <image src='../../image/juewang.jpg'></image>
+      <view class='tips-txt'>这一天所有的OPPO锁屏壁纸都加载完了哦!</view>
+      <view class='tips-btn-group'>
+        <view class='reload' bindtap="Reload">重新加载</view>
+        <view class='reload next-load' bindtap="nextLoad">加载上一天</view>
+      </view>
+    </view>
+  </view>
+  <view class='bottom'>
+    Copyright © 壁纸资源来自 OPPO锁屏杂志，未经允许禁止商用、二次上传以及转载。
+  </view>
+</view>

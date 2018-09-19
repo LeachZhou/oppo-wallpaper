@@ -35,5 +35,17 @@ App({
   },
   globalData: {
     userInfo: null
+  },
+  loading(){
+    wx.showLoading({
+      title: 'Loading...',
+      mask: true,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+  loadend(){
+    wx.hideLoading();
   }
 })

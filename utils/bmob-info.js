@@ -4,16 +4,16 @@ var util = require('util.js');
 var dayjs = require('dayjs.min.js');
 
 module.exports = {
-  init: function() {
+  init() {
     Bmob.initialize("6e810df9cb70d3817a543d38dce1408e", "0a764f82abda7265092c87ed19dca294");
   },
   oppoJson: oppoJson.oppoJson,
-  index: function(fn, day) {
+  index(fn, day) {
     let now = day || 0;
     const query = Bmob.Query('wallpaper');
     query.limit(1);
     query.order("-createdAt");
-    query.find().then(res => {
+    query.find().then((res) => {
       const queryTwo = Bmob.Query('wallpaper');
       queryTwo.equalTo("createdAt", "<", dayjs(res[0].createdAt).add(now + 1, 'day').format('YYYY-MM-DD HH:mm:ss').split(' ')[0] + ' 00:00:00');
       queryTwo.equalTo("createdAt", ">", dayjs(res[0].createdAt).add(now, 'day').format('YYYY-MM-DD HH:mm:ss').split(' ')[0] + ' 00:00:00');
@@ -26,7 +26,7 @@ module.exports = {
         for (let i = 0; i < flatArr.length; i++) {
           if (flatArr[i].author.match('undefined') || flatArr[i].img.match('undefined')) { //如果作者或者图片里面有undefined，则删除
             flatArr.splice(i, 1);
-          }else{
+          } else {
             if (flatArr[i].title.match('R')) { //如果标题里面包含“R"
               let index = flatArr[i].title.indexOf('R'); //获取R的位置
               if (flatArr[i].title[index + 2]) { //R往后是否有2个字符的位置
@@ -43,19 +43,23 @@ module.exports = {
           }
         }
         fn(flatArr);
-      }).catch(err => {
-        console.log(err)
+      }).catch((res) => {
+        console.log(res)
         wx.showToast({
           title: '请求失败',
+          image: '../../image/err.png',
           icon: 'none',
+          mask: true,
           duration: 5000
         })
       })
-    }).catch(err => {
-      console.log(err)
+    }).catch((res) => {
+      console.log(res)
       wx.showToast({
         title: '请求失败',
-        icon: 'none',
+        image: '../../image/err.png',
+        icon: 'none', 
+        mask: true,
         duration: 5000
       })
     })

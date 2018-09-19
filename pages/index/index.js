@@ -10,6 +10,7 @@ Page({
   data: {
     mainList: [],
     allResList: [],
+    allResListLength: 0,
     viewList: [],
     screenHeight: 0,
     screenWidth: 0,
@@ -22,7 +23,17 @@ Page({
     menuPopup: true,
     slideX: 0,
     shareCanvas: false,
-    rpx: 0
+    rpx: 0,
+    indicatorDots: false,
+    autoplay: false,
+    interval: 5000,
+    duration: 0,
+    currentImg: 0,
+    previewCurrentImg: 0,
+    swiperCurrent: 0,
+    preIndex: 0,
+    swiperError: 0
+
   },
   onLoad() {
     //获取指定DOM信息
@@ -37,15 +48,41 @@ Page({
         });
       }
     });
-    _this.fecthBmob(_this, () => {
+    _this.fecthBmob(_this, (res) => {
       _this.setData({
         loading: true,
-        initOpacity: 1
+        initOpacity: 1,
+        swiperCurrent: 0
+      }, () => {
+        app.loadend();
       });
     });
   },
-  onReady() {
+  animationfinish(res) {
     let _this = this;
+    if (res.detail.source == "touch") {
+      //当页面卡死的时候，current的值会变成0 
+      if (res.detail.current == 0) {
+        //有时候这算是正常情况，所以暂定连续出现3次就是卡了（划了半天还是卡主不动，current连续为0，但是手快连续切换也可以达到这样的效果）
+        _this.setData({
+          swiperError: _this.data.swiperError + 1
+        });
+      } else { //正常轮播时，记录正确页码索引
+        _this.setData({
+          preIndex: res.detail.current
+        });
+        //将开关重置为0
+        _this.setData({
+          swiperError: 0
+        });
+      }
+      if (_this.data.swiperError >= 3) { //在开关被触发3次以上
+        console.error(_this.data.swiperError)
+        _this.setData({
+          swiperCurrent: _this.data.preIndex
+        }); //重置current为正确索引
+      }
+    }
   },
   slideStart(e) {
     let _this = this;
@@ -58,27 +95,38 @@ Page({
   slideEnd(e) {
     let _this = this;
     let x = e.changedTouches[0].pageX;
-    if (x > _this.data.slideX) {
-      _this.data.mainList.shift();
-      _this.data.mainList.push(_this.data.allResList.shift());
+    if (_this.data.previewCurrentImg - _this.data.currentImg == 1) {
       _this.setData({
-        mainList: _this.data.mainList
+        previewCurrentImg: 0
       })
+    } else if (_this.data.previewCurrentImg == 0 && _this.data.currentImg == 0 && x > _this.data.slideX) {
+      _this.previousLoad();
     }
-    if (!_this.data.mainList[0]) {
+    if (_this.data.currentImg == (_this.data.allResListLength - 1) && _this.data.currentImg - _this.data.previewCurrentImg == 1) {
       _this.setData({
-        imgNumEndTips: true
-      });
+        previewCurrentImg: _this.data.allResListLength - 1
+      })
+    } else if (_this.data.previewCurrentImg == (_this.data.allResListLength - 1) && _this.data.currentImg == (_this.data.allResListLength - 1) && x < _this.data.slideX) {
+      _this.nextLoad();
     }
   },
-  previewImg() {
+  swiperChange(e) {
+    let _this = this;
+    _this.setData({
+      previewCurrentImg: _this.data.currentImg
+    })
+    _this.setData({
+      currentImg: e.detail.current
+    })
+  },
+  previewImg(e) {
     let _this = this;
     let arr = [];
     for (let item of _this.data.viewList) {
       arr.push(item.img);
     }
     wx.previewImage({
-      current: _this.data.mainList[0].img, // 当前显示图片的http链接
+      current: e.currentTarget.dataset.src, // 当前显示图片的http链接
       urls: arr // 需要预览的图片http链接列表
     })
   },
@@ -90,44 +138,46 @@ Page({
     })
   },
   fecthBmob(_this, fn, day) {
-    bmobInfo.index(function(res) {
-      let flatArr = [...res];
-      _this.setData({
-        allResList: flatArr,
-        viewList: flatArr
-      });
-      let mainListTemp = [];
-      for (let i = 0; i < 4; i++) {
-        mainListTemp.push(_this.data.allResList[0]);
-        _this.data.allResList.shift();
-      }
-      let mainActiveTemp = mainListTemp[0];
-      if (!mainActiveTemp) {
+    app.loading();
+    bmobInfo.index((res) => {
+      if (res.length) {
+        let flatArr = [...res];
         _this.setData({
-          imgNumEndTips: true
+          allResList: flatArr,
+          viewList: flatArr,
+          allResListLength: flatArr.length
         });
       } else {
-        _this.setData({
-          imgNumEndTips: false,
-          mainList: mainListTemp
-        });
+        wx.showToast({
+          title: '总是空空如也~',
+          image: '../../image/blank.png',
+          icon: 'none',
+          mask: true,
+          duration: 5000
+        })
       }
-      fn();
+      fn(res);
     }, day);
   },
-  Reload() {
+  previousLoad() {
     let _this = this;
     _this.setData({
       loading: false,
       initOpacity: 0
     });
-    _this.fecthBmob(_this, () => {
+    _this.fecthBmob(_this, (res) => {
+      if (res.length) {
+        _this.setData({
+          now: _this.data.now + 1
+        });
+      }
       _this.setData({
-        loading: true,
-        initOpacity: 1,
-        titleOpacity: 1
+        swiperCurrent: 0,
+        currentImg: 0
+      }, () => {
+        app.loadend();
       });
-    }, _this.data.now);
+    }, _this.data.now + 1);
   },
   nextLoad() {
     let _this = this;
@@ -135,16 +185,19 @@ Page({
       loading: false,
       initOpacity: 0
     });
-    _this.setData({
-      now: _this.data.now - 1
-    })
-    _this.fecthBmob(_this, () => {
+    _this.fecthBmob(_this, (res) => {
+      if (res.length) {
+        _this.setData({
+          now: _this.data.now - 1
+        });
+      }
       _this.setData({
-        loading: true,
-        initOpacity: 1,
-        titleOpacity: 1
+        swiperCurrent: 0,
+        currentImg: 0
+      }, () => {
+        app.loadend();
       });
-    }, _this.data.now);
+    }, _this.data.now - 1);
   },
   menuTap() {
     let _this = this;
@@ -160,9 +213,9 @@ Page({
     let imageUrl = '';
     if (ops.from === 'button') {
       // 来自页面内转发按钮
-      console.log(ops.target);
-      title = _this.data.mainList[0].title;
-      imageUrl = _this.data.mainList[0].img;
+      // console.log(ops.target);
+      title = ops.target.dataset.title;
+      imageUrl = ops.target.dataset.src;
     } else {
       title = '仪式感壁纸';
       imageUrl = 'http://bmob-cdn-21525.b0.upaiyun.com/2018/09/18/6dd1101a4068d5f8805e0168215f9f87.png';
