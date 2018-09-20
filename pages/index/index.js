@@ -34,7 +34,8 @@ Page({
     preIndex: 0,
     swiperError: 0,
     leftBtn: false,
-    blank: false
+    blank: false,
+    activeInfo: {}
   },
   onLoad() {
     //获取指定DOM信息
@@ -49,9 +50,11 @@ Page({
         });
       }
     });
+    //请求数据
     _this.fecthBmob(_this, (res) => {
       _this.setData({
-        swiperCurrent: 0
+        swiperCurrent: 0,
+        activeInfo: res[0]
       }, () => {
         app.loadend();
       });
@@ -83,6 +86,9 @@ Page({
       }
     }
   },
+  /**
+   * 滑动操作开始
+   */
   slideStart(e) {
     let _this = this;
     let x = e.changedTouches[0].pageX;
@@ -91,6 +97,9 @@ Page({
       slideX: x
     })
   },
+  /**
+   * 滑动操作结束
+   */
   slideEnd(e) {
     let _this = this;
     let x = e.changedTouches[0].pageX;
@@ -103,14 +112,16 @@ Page({
         _this.previousLoad();
       }
     } else {
-      //第一个彩蛋
-      wx.showToast({
-        title: '你滑什么滑~',
-        image: '../../image/despise.png',
-        icon: 'none',
-        mask: true,
-        duration: 5000
-      })
+      if (x > _this.data.slideX) {
+        //第一个彩蛋
+        wx.showToast({
+          title: '你滑什么滑~',
+          image: '../../image/despise.png',
+          icon: 'none',
+          mask: true,
+          duration: 5000
+        })
+      }
     }
     if (_this.data.currentImg == (_this.data.allResListLength - 1) && _this.data.currentImg - _this.data.previewCurrentImg == 1) {
       _this.setData({
@@ -120,6 +131,9 @@ Page({
       _this.nextLoad();
     }
   },
+  /**
+   * 轮播滑动
+   */
   swiperChange(e) {
     let _this = this;
     _this.setData({
@@ -127,9 +141,13 @@ Page({
     })
     _this.setData({
       currentImg: e.detail.current,
+      activeInfo: _this.data.allResList[e.detail.current],
       leftBtn: true
     })
   },
+  /**
+   * 预览图片
+   */
   previewImg(e) {
     let _this = this;
     let arr = [];
@@ -141,6 +159,9 @@ Page({
       urls: arr // 需要预览的图片http链接列表
     })
   },
+  /**
+   * 页面跳转
+   */
   hrefUrl(e) {
     let _this = this;
     _this.menuTap();
@@ -148,6 +169,9 @@ Page({
       url: e.currentTarget.dataset.url
     })
   },
+  /**
+   * 数据请求
+   */
   fecthBmob(_this, fn, day) {
     app.loading();
     bmobInfo.index((res) => {
@@ -173,7 +197,10 @@ Page({
       fn(res);
     }, day);
   },
-  previousLoad() { //加载下一天
+  /**
+   * 加载下一天
+   */
+  previousLoad() {
     let _this = this;
     _this.fecthBmob(_this, (res) => {
       if (res.length) {
@@ -189,13 +216,13 @@ Page({
           app.loadend();
         });
       } else {
-        if(!_this.data.blank){//如果空空如也没有显示
+        if (!_this.data.blank) { //如果空空如也没有显示
           _this.setData({
             currentImg: 0
           }, () => {
             app.loadend();
           });
-        } else {//如果空空如也显示了，不消失toast，它会5秒后自动消失
+        } else { //如果空空如也显示了，不消失toast，它会5秒后自动消失
           _this.setData({
             currentImg: 0
           });
@@ -206,6 +233,9 @@ Page({
       })
     }, _this.data.now + 1);
   },
+  /**
+   * 加载上一天
+   */
   nextLoad() {
     let _this = this;
     _this.setData({
@@ -226,6 +256,9 @@ Page({
       });
     }, _this.data.now - 1);
   },
+  /**
+   * 点击菜单
+   */
   menuTap() {
     let _this = this;
     _this.data.menuPopup ? _this.setData({
@@ -234,6 +267,9 @@ Page({
       menuPopup: true
     })
   },
+  /**
+   * 商务合作 客服功能
+   */
   onShareAppMessage(ops) {
     let _this = this;
     let title = '';
@@ -262,7 +298,7 @@ Page({
     }
   },
   /**
-   * 圆角矩形
+   * 绘制圆角矩形
    * x 矩形的x坐标
    * y 矩形的y坐标
    * w 矩形的宽
@@ -271,8 +307,9 @@ Page({
    */
   roundRect(ctx, x, y, w, h, r) {
     // 开始绘制
+    ctx.save();
     ctx.beginPath();
-    this.ctx.setFillStyle('#ffffff');
+    ctx.setFillStyle('#ffffff');
     ctx.arc(x + r, y + r, r, Math.PI, Math.PI * 1.5);
     ctx.moveTo(x + r, y);
     ctx.lineTo(x + w - r, y);
@@ -286,45 +323,94 @@ Page({
     ctx.arc(x + r, y + h - r, r, Math.PI * 0.5, Math.PI);
     ctx.lineTo(x, y + r);
     ctx.lineTo(x + r, y);
-    this.ctx.fill();
-    this.ctx.setGlobalAlpha(0.04);
-    this.ctx.setShadow(0, 2, 4, '#000000');
+    ctx.fill();
+    ctx.setGlobalAlpha(0.04);
+    ctx.setShadow(0, 2, 4, '#000000');
     ctx.closePath();
-    this.ctx.draw(true);
-    return this;
+    ctx.draw(true);
+    return ctx;
   },
+  /**
+   * 保存canvas一些用法
+   */
+  canvasTemp() {
+    //保存状态
+    ctx.save();
+    //开始绘制
+    ctx.beginPath();
+    /**
+     * 画一条弧线 
+     * number x 圆心的 x 坐标
+     * number y 圆心的 y 坐标
+     * number r 圆的半径
+     * number sAngle 起始弧度，单位弧度（在3点钟方向）
+     * number eAngle 终止弧度    2 * Math.PI是一个整圆
+     * number counterclockwise 弧度的方向是否是逆时针
+     */
+    ctx.arc(50, 50, 100, 0, 2 * Math.PI);
+    // 剪切区域
+    ctx.clip();
+    /**
+     * 绘制图像到画布
+     * imageResource	String	所要绘制的图片资源
+     * dx	Number	图像的左上角在目标canvas上 X 轴的位置
+     * dy	Number	图像的左上角在目标canvas上 Y 轴的位置
+     * dWidth	Number	在目标画布上绘制图像的宽度，允许对绘制的图像进行缩放
+     * dHeight	Number	在目标画布上绘制图像的高度，允许对绘制的图像进行缩放
+     * sx	Number	源图像的矩形选择框的左上角 X 坐标
+     * sy	Number	源图像的矩形选择框的左上角 Y 坐标
+     * sWidth	Number	源图像的矩形选择框的宽度
+     * sHeight	Number	源图像的矩形选择框的高度
+     */
+    ctx.drawImage(_this.data.activeInfo.img, 0, 1920 / 10, 1235, 2195, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
+    // 恢复之前保存的绘图上下文
+    ctx.restore();
+    // 将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中。
+    ctx.draw(true, () => {
+      _this.saveToTempFilePath()
+    })
+  },
+  /**
+   * 绘制圆角图片
+   */
+  roundRectImg(ctx, x, y, w, h, r) {
+    let min_size = Math.min(w, h);
+    if (r > min_size / 2) r = min_size / 2;
+    // 开始绘制
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+    return ctx;
+  },
+  /**
+   * 点击分享朋友圈
+   */
   friends() {
     let _this = this;
     let rpx = _this.data.rpx;
     _this.setData({
       shareCanvas: true
     })
-    wx.showLoading({
-      title: 'Loading...',
-      mask: true
-    })
+    app.loading();
     let ctx = wx.createCanvasContext('canvas');
-
-    ctx.drawImage(_this.data.mainList[0].img, 0, 1920 / 10, 1235, 2195, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
-
-    ctx.save()
-    ctx.beginPath()
-    ctx.arc(50, 50, 25, 0, 2 * Math.PI)
-    ctx.clip()
-    ctx.drawImage(_this.data.mainList[1].img, 25, 25)
-    ctx.restore()
-
-
-    ctx.setFontSize(12);
-    ctx.setFillStyle('transparent'); //设置填充色s
-    ctx.setTextAlign('center'); //用于设置文字的对齐
-    ctx.fillRect(10, 10, 150, 75); //填充一个矩形
-    ctx.fillText(_this.data.mainList[0].title, 20, 1900); //在画布上绘制被填充的文本
-    ctx.draw(false, () => {
-      _this.saveToTempFilePath()
+    ctx.drawImage(_this.data.activeInfo.img, 0, 1920 / 10, 1235, 2195, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
+    // const pattern = ctx.createPattern(_this.data.activeInfo.img, 'no-repeat');
+    // ctx = _this.roundRect(ctx, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx, 20);
+    // ctx.fillStyle = pattern;
+    // ctx.fillRect(0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
+     
+    ctx.draw(true, () => {
+      _this.saveToTempFilePath();
     })
-    wx.hideLoading();
+    app.loadend();
   },
+  /**
+   * 获取用户信息 头像 名称 绘制到画布上
+   */
   info() {
     wx.getImageInfo({
       src: miniProgramCodeSrc,
@@ -356,7 +442,9 @@ Page({
       }
     })
   },
-  //获取 tempFilePath
+  /**
+   * 把当前画布指定区域的内容导出生成指定大小的图片，并返回文件路径。在 draw() 回调里调用该方法才能保证图片导出成功。在自定义组件下，第二个参数传入自定义组件实例的 this，以操作组件内 <canvas> 组件。
+   */
   saveToTempFilePath() {
     wx.canvasToTempFilePath({
       canvasId: 'canvas',
@@ -365,7 +453,9 @@ Page({
       }
     }, this)
   },
-  //获取保存权限
+  /**
+   * 获取保存权限
+   */
   savePermission() {
     wx.getSetting({
       success: (res) => {
@@ -382,7 +472,9 @@ Page({
       }
     })
   },
-  //保存图片到相册
+  /**
+   * 保存图片到相册
+   */
   saveImageToPhotosAlbumByWX(tempFilePath) {
     wx.saveImageToPhotosAlbum({
       filePath: tempFilePath,
@@ -391,6 +483,9 @@ Page({
       }
     })
   },
+  /**
+   * 点击canvas背后蒙层
+   */
   maskingTap() {
     let _this = this;
     _this.setData({
