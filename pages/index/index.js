@@ -33,7 +33,8 @@ Page({
     swiperCurrent: 0,
     preIndex: 0,
     swiperError: 0,
-    leftBtn: false
+    leftBtn: false,
+    blank: false
   },
   onLoad() {
     //获取指定DOM信息
@@ -102,6 +103,7 @@ Page({
         _this.previousLoad();
       }
     } else {
+      //第一个彩蛋
       wx.showToast({
         title: '你滑什么滑~',
         image: '../../image/despise.png',
@@ -164,6 +166,9 @@ Page({
           mask: true,
           duration: 5000
         })
+        _this.setData({
+          blank: true
+        });
       }
       fn(res);
     }, day);
@@ -184,11 +189,17 @@ Page({
           app.loadend();
         });
       } else {
-        _this.setData({
-          currentImg: 0
-        }, () => {
-          app.loadend();
-        });
+        if(!_this.data.blank){//如果空空如也没有显示
+          _this.setData({
+            currentImg: 0
+          }, () => {
+            app.loadend();
+          });
+        } else {//如果空空如也显示了，不消失toast，它会5秒后自动消失
+          _this.setData({
+            currentImg: 0
+          });
+        }
       }
       _this.setData({
         leftBtn: false
