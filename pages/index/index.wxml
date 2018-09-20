@@ -3,7 +3,7 @@
   <view class='top'>
     <image src='../../image/YSG-x-logo.png'></image>
   </view>
-  <swiper class='swiper' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange" previous-margin="85rpx" next-margin="85rpx" bindtouchstart='slideStart' bindtouchend='slideEnd'
+  <swiper class='swiper' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange" previous-margin="86rpx" next-margin="85rpx" bindtouchstart='slideStart' bindtouchend='slideEnd'
     current='{{swiperCurrent}}' skip-hidden-item-layout="true">
     <block wx:for="{{allResList}}" wx:key="index" wx:for-index="idx">
       <swiper-item>

@@ -397,12 +397,31 @@ Page({
     })
     app.loading();
     let ctx = wx.createCanvasContext('canvas');
+    let x = 0;
+    let y = 0;
+    let w = 280 * rpx;
+    let h = 400 * rpx;
+    let r = 20;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+    ctx.clip();
     ctx.drawImage(_this.data.activeInfo.img, 0, 1920 / 10, 1235, 2195, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
-    // const pattern = ctx.createPattern(_this.data.activeInfo.img, 'no-repeat');
-    // ctx = _this.roundRect(ctx, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx, 20);
-    // ctx.fillStyle = pattern;
-    // ctx.fillRect(0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
-     
+    ctx.restore();
+
+
+    // ctx.save()
+    // ctx.beginPath()
+    // ctx.arc(50, 50, 25, 0, 2 * Math.PI)
+    // ctx.clip()
+    // ctx.drawImage(_this.data.activeInfo.img, 25, 25)
+    // ctx.restore()
+
     ctx.draw(true, () => {
       _this.saveToTempFilePath();
     })
@@ -491,6 +510,8 @@ Page({
     _this.setData({
       shareCanvas: false
     })
+    let ctx = wx.createCanvasContext('canvas');
+    ctx.draw(true); //清空画布
   }
 })
 
