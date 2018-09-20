@@ -186,7 +186,7 @@
   border-radius: 20rpx 0 20rpx 20rpx;
   padding: 10rpx 0;
   z-index: 1004;
-  animation: in 600ms linear;
+  animation: in 200ms linear;
   animation-fill-mode: forwards;
   opacity: 0;
 }

@@ -33,7 +33,7 @@ Page({
     swiperCurrent: 0,
     preIndex: 0,
     swiperError: 0,
-    leftBtnHide: false
+    leftBtn: false
   },
   onLoad() {
     //获取指定DOM信息
@@ -93,12 +93,22 @@ Page({
   slideEnd(e) {
     let _this = this;
     let x = e.changedTouches[0].pageX;
-    if (_this.data.previewCurrentImg - _this.data.currentImg == 1) {
-      _this.setData({
-        previewCurrentImg: 0
+    if (_this.data.leftBtn) {
+      if (_this.data.previewCurrentImg - _this.data.currentImg == 1) {
+        _this.setData({
+          previewCurrentImg: 0
+        })
+      } else if (_this.data.previewCurrentImg == 0 && _this.data.currentImg == 0 && x > _this.data.slideX) {
+        _this.previousLoad();
+      }
+    } else {
+      wx.showToast({
+        title: '你滑什么滑~',
+        image: '../../image/despise.png',
+        icon: 'none',
+        mask: true,
+        duration: 5000
       })
-    } else if (_this.data.previewCurrentImg == 0 && _this.data.currentImg == 0 && x > _this.data.slideX) {
-      _this.previousLoad();
     }
     if (_this.data.currentImg == (_this.data.allResListLength - 1) && _this.data.currentImg - _this.data.previewCurrentImg == 1) {
       _this.setData({
@@ -115,7 +125,7 @@ Page({
     })
     _this.setData({
       currentImg: e.detail.current,
-      leftBtnHide: true
+      leftBtn: true
     })
   },
   previewImg(e) {
@@ -174,18 +184,15 @@ Page({
           app.loadend();
         });
       } else {
-        if (res.lengh) {
-          _this.setData({
-            currentImg: 0
-          }, () => {
-            app.loadend();
-          });
-        } else {
-          _this.setData({
-            currentImg: 0
-          });
-        }
+        _this.setData({
+          currentImg: 0
+        }, () => {
+          app.loadend();
+        });
       }
+      _this.setData({
+        leftBtn: false
+      })
     }, _this.data.now + 1);
   },
   nextLoad() {

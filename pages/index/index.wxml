@@ -4,7 +4,7 @@
     <image src='../../image/YSG-x-logo.png'></image>
   </view>
   <swiper class='swiper' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange" previous-margin="85rpx" next-margin="85rpx" bindtouchstart='slideStart' bindtouchend='slideEnd'
-    current='{{swiperCurrent}}' bindanimationfinish="animationfinish" skip-hidden-item-layout="true">
+    current='{{swiperCurrent}}' skip-hidden-item-layout="true">
     <block wx:for="{{allResList}}" wx:key="index" wx:for-index="idx">
       <swiper-item>
         <view class="swiper-item-con {{currentImg == idx?'swiper-active':''}}">
@@ -12,7 +12,7 @@
           <view class='share'>
             <image src='../../image/share.png'></image>
           </view>
-          <view class='f' bindtap=''>
+          <view class='f' bindtap='friends'>
             <image src='../../image/f.png'></image>
           </view>
           <image src="{{item.img}}" data-src="{{item.img}}" class="change-img" mode="aspectFill" bindtap='previewImg'></image>
@@ -56,7 +56,7 @@
       </view>
     </view>
   </view>
-  <text class='left-btn' wx:if='{{leftBtnHide}}' style="transform: translateX({{currentImg==0?'0':'-80'}}rpx);">加载下一天</text>
+  <text class='left-btn' wx:if='{{leftBtn}}' style="transform: translateX({{currentImg==0?'0':'-80'}}rpx);">加载下一天</text>
   <text class='right-btn' style="transform: translateX({{currentImg==(allResListLength-1)?'0':'80'}}rpx);">加载上一天</text>
   <view class='bottomTip'>
     (〃'▽'〃) 左滑下一张
