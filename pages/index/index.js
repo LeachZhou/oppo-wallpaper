@@ -35,11 +35,17 @@ Page({
     swiperError: 0,
     leftBtn: false,
     blank: false,
-    activeInfo: {}
+    activeInfo: {},
+    scene: ''
   },
-  onLoad() {
+  onLoad(options) {
     //获取指定DOM信息
     let _this = this;
+    // options 中的 scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
+    let scene = decodeURIComponent(options.scene)
+    _this.setData({
+      scene: scene
+    });
     //获取屏幕宽高
     wx.getSystemInfo({
       success: function(res) {
@@ -387,9 +393,22 @@ Page({
     return ctx;
   },
   /**
+   * 引导用户进行授权
+   */
+  bindGetUserInfo(e) {
+    let _this = this;
+    // console.log(e.detail.userInfo)
+    if (e.detail.userInfo) {
+      //用户按了允许授权按钮
+      _this.friends(e.detail.userInfo.avatarUrl, e.detail.userInfo.nickName);
+    } else {
+      //用户按了拒绝按钮
+    }
+  },
+  /**
    * 点击分享朋友圈
    */
-  friends() {
+  friends(avatarUrl, nickName) {
     let _this = this;
     let rpx = _this.data.rpx;
     _this.setData({
@@ -397,10 +416,30 @@ Page({
     })
     app.loading();
     let ctx = wx.createCanvasContext('canvas');
-    let x = 0;
-    let y = 0;
+    //头像绘制
+    ctx.save()
+    ctx.beginPath()
+    ctx.setLineWidth(5)
+    ctx.arc((_this.data.screenWidth - 50) / 2 + 25, 15 + 25, 25, 0, 2 * Math.PI);
+    ctx.setStrokeStyle('#ffffff')
+    ctx.stroke();
+    ctx.closePath();
+    ctx.clip()
+    ctx.drawImage(avatarUrl, 0, 0, 132, 132, (_this.data.screenWidth - 50) / 2, 15, 50, 50)
+    ctx.restore()
+    //用户名绘制
+    ctx.save()
+    ctx.beginPath()
+    ctx.fillStyle = "#838b93";
+    ctx.fillText(nickName, (_this.data.screenWidth - ctx.measureText(nickName).width) / 2, 85)
+    ctx.closePath();
+    ctx.clip()
+    ctx.restore()
+    //图片绘制
     let w = 280 * rpx;
     let h = 400 * rpx;
+    let x = (_this.data.screenWidth - w) / 2;
+    let y = 100;
     let r = 20;
     ctx.save();
     ctx.beginPath();
@@ -411,16 +450,51 @@ Page({
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
     ctx.clip();
-    ctx.drawImage(_this.data.activeInfo.img, 0, 1920 / 10, 1235, 2195, 0, 0, 320 * rpx, 320 / 1080 * 1920 * rpx);
+    // wx.getImageInfo({
+    //   src: _this.data.activeInfo.img,
+    //   success: (res) => {
+    //     // 下载成功 即可获取到本地路径
+    //     ctx.drawImage(res.path, 0, 1920 / 10, 1235, 2195, x, y, 320 * rpx, 320 / 1080 * 1920 * rpx);
+    //   }
+    // })
+    ctx.drawImage(_this.data.activeInfo.img, 0, 1920 / 10, 1235, 2195, x, y, 320 * rpx, 320 / 1080 * 1920 * rpx);
     ctx.restore();
 
 
-    // ctx.save()
-    // ctx.beginPath()
-    // ctx.arc(50, 50, 25, 0, 2 * Math.PI)
-    // ctx.clip()
-    // ctx.drawImage(_this.data.activeInfo.img, 25, 25)
-    // ctx.restore()
+    //二维码绘制
+    let APPID = 'wx0f6261f510d139f2';
+    let APPSECRET = 'beca95b4f6acdb6c2ce134b37ecfad01';
+    wx.request({
+      url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`,
+      success(res) {
+        // console.log(res)
+        wx.request({
+          url: `https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=${res.access_token}`,
+          method: 'POST',
+          data: {
+            scene: _this.data.scene,
+            page: "pages/index/index",
+            width: 100
+          },
+          success(resp) {
+            console.log(resp)
+            // ctx.save()
+            // ctx.drawImage('', 0, 0, 132, 132, (_this.data.screenWidth - 50) / 2, 15, 50, 50)
+            // ctx.restore()
+          }
+        })
+      }
+    })
+
+
+
+
+    
+
+
+
+
+
 
     ctx.draw(true, () => {
       _this.saveToTempFilePath();
@@ -428,47 +502,13 @@ Page({
     app.loadend();
   },
   /**
-   * 获取用户信息 头像 名称 绘制到画布上
-   */
-  info() {
-    wx.getImageInfo({
-      src: miniProgramCodeSrc,
-      success: (response) => {
-        const miniProgramCodeSize = this.transformScale(160)
-        ctx.drawImage(response.path, this.transformScale(85), this.transformScale(710), miniProgramCodeSize, miniProgramCodeSize)
-
-        wx.getImageInfo({
-          src: this.privateUserInfo.avatar,
-          success: (response) => {
-            const avatarSize = this.transformScale(100)
-            //先绘制圆，裁剪成圆形图片
-            ctx.save();
-            ctx.beginPath();
-            //圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
-            ctx.arc(this.transformScale(320), this.transformScale(425), avatarSize / 2, 0, 2 * Math.PI);
-            ctx.setStrokeStyle('#ffffff');
-            ctx.stroke();
-            ctx.clip();
-
-            ctx.drawImage(response.path, this.transformScale(270), this.transformScale(375), avatarSize, avatarSize)
-            ctx.restore();
-
-            ctx.draw(false, () => {
-              this.saveToTempFilePath()
-            })
-          }
-        })
-      }
-    })
-  },
-  /**
    * 把当前画布指定区域的内容导出生成指定大小的图片，并返回文件路径。在 draw() 回调里调用该方法才能保证图片导出成功。在自定义组件下，第二个参数传入自定义组件实例的 this，以操作组件内 <canvas> 组件。
    */
   saveToTempFilePath() {
     wx.canvasToTempFilePath({
       canvasId: 'canvas',
-      success: (response) => {
-
+      success: (res) => {
+        // console.log(res);
       }
     }, this)
   },
