@@ -33,13 +33,9 @@ Page({
         });
       }
     });
-    wx.showLoading({
-      title: 'Loading...',
-      mask: 'true',
-      duration: 1000
-    })
+    app.loading();
     _this.fecthBmob(_this, () => {
-      wx.hideLoading();
+      app.loadend();
     }, 0, true);
   },
   onReady() {},
@@ -83,16 +79,12 @@ Page({
       gapTime = 1500;
     let _nowTime = +new Date()
     if (_nowTime - _lastTime > gapTime || !_lastTime) {
-      wx.showLoading({
-        title: 'Loading...',
-        mask: 'true',
-        duration: 1000
-      })
+      app.loading();
       _this.setData({
         day: _this.data.day - 1
       });
       _this.fecthBmob(_this, () => {
-        wx.hideLoading();
+        app.loadend();
       }, _this.data.day);
       _lastTime = _nowTime
     }

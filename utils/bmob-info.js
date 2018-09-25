@@ -14,17 +14,25 @@ module.exports = {
     query.limit(1);
     query.order("-createdAt");
     query.find().then((res) => {
-      const queryTwo = Bmob.Query('wallpaper');
-      queryTwo.equalTo("createdAt", "<", dayjs(res[0].createdAt).add(now + 1, 'day').format('YYYY-MM-DD HH:mm:ss').split(' ')[0] + ' 00:00:00');
-      queryTwo.equalTo("createdAt", ">", dayjs(res[0].createdAt).add(now, 'day').format('YYYY-MM-DD HH:mm:ss').split(' ')[0] + ' 00:00:00');
-      queryTwo.find().then(res => {
+      query.order("-wallpaperTime");
+      let nextTime = {
+        "__type": "Date",
+        "iso": dayjs(res[0].wallpaperTime.iso).add(now + 1, 'day').format('YYYY-MM-DD HH:mm:ss').split(' ')[0] + ' 00:00:00'
+      }
+      let nowTime = {
+        "__type": "Date",
+        "iso": dayjs(res[0].wallpaperTime.iso).add(now, 'day').format('YYYY-MM-DD HH:mm:ss').split(' ')[0] + ' 00:00:00'
+      }
+      query.equalTo("wallpaperTime", "<", nextTime);
+      query.equalTo("wallpaperTime", ">", nowTime);
+      query.find().then(res => {
         let arr = [];
         for (let item of res) {
           arr.push(oppoJson.oppoJson(item.wallpaperData));
         }
         let flatArr = util.flatten(arr);
         for (let i = 0; i < flatArr.length; i++) {
-          if (flatArr[i].author.match('undefined') || flatArr[i].img.match('undefined')) { //如果作者或者图片里面有undefined，则删除
+          if (flatArr[i].author.match('undefine') || flatArr[i].img.match('undefine')) { //如果作者或者图片里面有undefined，则删除
             flatArr.splice(i, 1);
           } else {
             if (flatArr[i].title.match('R')) { //如果标题里面包含“R"

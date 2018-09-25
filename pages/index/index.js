@@ -32,11 +32,11 @@ Page({
     previewCurrentImg: 0,
     swiperCurrent: 0,
     preIndex: 0,
-    swiperError: 0,
-    leftBtn: false,
-    blank: false,
-    activeInfo: {},
-    scene: ''
+    swiperError: 0, //swiper错误
+    leftBtn: false, //左边按钮是否显示
+    blank: false, //是否为空
+    activeInfo: {}, //当前显示的大图
+    scene: '', //微信小程序二维码相关scene
   },
   onLoad(options) {
     //获取指定DOM信息
@@ -433,7 +433,6 @@ Page({
     ctx.fillStyle = "#838b93";
     ctx.fillText(nickName, (_this.data.screenWidth - ctx.measureText(nickName).width) / 2, 85)
     ctx.closePath();
-    ctx.clip()
     ctx.restore()
     //图片绘制
     let w = 280 * rpx;
@@ -461,39 +460,42 @@ Page({
     ctx.restore();
 
 
+    //二维码绘制，暂时使用不到，这种使用场景多用于生成带参数的页面的二维码，目前二维码可以固定
+    // let APPID = '';
+    // let APPSECRET = '';
+    // wx.request({
+    //   url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`,
+    //   success(res) {
+    //     wx.request({
+    //       url: `https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=${res.data.access_token}`,
+    //       method: 'POST',
+    //       data: {
+    //         scene: _this.data.scene,
+    //         page: "pages/index/index",
+    //         width: 100
+    //       },
+    //       success(res) {
+    //         console.log(wx.arrayBufferToBase64(res.data))
+    //         // ctx.save()
+    //         // ctx.drawImage('', 0, 0, 132, 132, (_this.data.screenWidth - 50) / 2, 15, 50, 50)
+    //         // ctx.restore()
+    //       }
+    //     })
+    //   }
+    // })
+
     //二维码绘制
-    let APPID = 'wx0f6261f510d139f2';
-    let APPSECRET = 'beca95b4f6acdb6c2ce134b37ecfad01';
-    wx.request({
-      url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`,
-      success(res) {
-        // console.log(res)
-        wx.request({
-          url: `https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=${res.access_token}`,
-          method: 'POST',
-          data: {
-            scene: _this.data.scene,
-            page: "pages/index/index",
-            width: 100
-          },
-          success(resp) {
-            console.log(resp)
-            // ctx.save()
-            // ctx.drawImage('', 0, 0, 132, 132, (_this.data.screenWidth - 50) / 2, 15, 50, 50)
-            // ctx.restore()
-          }
-        })
-      }
-    })
-
-
-
-
-    
-
-
-
-
+    ctx.save();
+    ctx.drawImage('../../image/qr.png', 0, 0, 500, 500, (_this.data.screenWidth - 80) / 2, 510, 80, 80);
+    ctx.restore();
+    //二维码文字绘制
+    ctx.save()
+    ctx.beginPath()
+    ctx.fillStyle = "#838b93";
+    let qr_txt = '长按二维码，使用小程序';
+    ctx.fillText(qr_txt, (_this.data.screenWidth - ctx.measureText(qr_txt).width) / 2, 605);
+    ctx.closePath();
+    ctx.restore();
 
 
     ctx.draw(true, () => {

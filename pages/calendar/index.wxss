@@ -15,6 +15,7 @@
 
 .img-list image {
   width: 33.333%;
+  background: rgba(214, 214, 214, 0.801);
 }
 
 .calendarOverTip {
