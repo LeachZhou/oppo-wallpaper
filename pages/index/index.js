@@ -438,7 +438,7 @@ Page({
     let w = 280 * rpx;
     let h = 400 * rpx;
     let x = (_this.data.screenWidth - w) / 2;
-    let y = 100;
+    let y = 102;
     let r = 20;
     ctx.save();
     ctx.beginPath();
@@ -486,14 +486,14 @@ Page({
 
     //二维码绘制
     ctx.save();
-    ctx.drawImage('../../image/qr.png', 0, 0, 500, 500, (_this.data.screenWidth - 80) / 2, 510, 80, 80);
+    ctx.drawImage('../../image/qr.png', 0, 0, 505, 505, (_this.data.screenWidth - 80) / 2, 515, 80, 80);
     ctx.restore();
     //二维码文字绘制
     ctx.save()
     ctx.beginPath()
     ctx.fillStyle = "#838b93";
     let qr_txt = '长按二维码，使用小程序';
-    ctx.fillText(qr_txt, (_this.data.screenWidth - ctx.measureText(qr_txt).width) / 2, 605);
+    ctx.fillText(qr_txt, (_this.data.screenWidth - ctx.measureText(qr_txt).width) / 2, 610);
     ctx.closePath();
     ctx.restore();
 
