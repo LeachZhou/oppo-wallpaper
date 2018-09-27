@@ -12,7 +12,8 @@
           <view class='share'>
             <image src='../../image/share.png'></image>
           </view>
-          <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo='bindGetUserInfo'></button>
+          <!-- <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo='bindGetUserInfo'></button> -->
+          <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo=''></button>
           <view class='f' catchtap='canvasUserInfo'>
             <image src='../../image/f.png'></image>
           </view>

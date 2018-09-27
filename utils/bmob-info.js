@@ -40,8 +40,8 @@ module.exports = {
               if (flatArr[i].title[index + 2]) { //R往后是否有2个字符的位置
                 // console.log(flatArr[i].title[index] + flatArr[i].title[index + 1]);
                 // if ((flatArr[i].title[index + 2]).match(/[\u4e00-\u9fa5]/)) { //往后的2个位置是否是汉字
-                  let str = flatArr[i].title.substr(0, index) + ' ' + flatArr[i].title.substr(index + 2); //如果是汉字把R和R后面的一个字符删掉，前后进行拼接
-                  flatArr[i].title = str;
+                let str = flatArr[i].title.substr(0, index) + ' ' + flatArr[i].title.substr(index + 2); //如果是汉字把R和R后面的一个字符删掉，前后进行拼接
+                flatArr[i].title = str;
                 // }
               }
               if (flatArr[i].title[flatArr[i].title.length - 1] == 'R') {
@@ -66,11 +66,32 @@ module.exports = {
       wx.showToast({
         title: '请求失败',
         image: '../../image/err.png',
-        icon: 'none', 
+        icon: 'none',
         mask: true,
         duration: 5000
       })
     })
 
+  },
+  update(fn, page) {
+    page = page || 1; //分页，默认第一页
+    const query = Bmob.Query('update');
+    let limit = 10 * page;
+    let skip = 10 * (page - 1);
+    query.limit(limit);
+    query.skip(skip);
+    query.order("-date");
+    query.find().then((res) => {
+      fn(res);
+    }).catch((res) => {
+      console.log(res)
+      wx.showToast({
+        title: '请求失败',
+        image: '../../image/err.png',
+        icon: 'none',
+        mask: true,
+        duration: 5000
+      })
+    })
   }
 }

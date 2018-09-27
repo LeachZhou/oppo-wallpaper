@@ -1,0 +1,62 @@
+.page-bd {
+  padding: 0 30rpx 1rpx;
+  min-height: 100vh;
+  background-color: #f8f8f8;
+}
+
+.page-li {
+  background: #fff;
+  padding: 40rpx;
+  font-size: 30rpx;
+  margin-bottom: 30rpx;
+  overflow: hidden;
+  height: 40rpx;
+}
+
+.des {
+  text-align: left;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #acacac;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  padding: 40rpx 0 0;
+  line-height: 2;
+  font-size: 26rpx;
+  transition: all 0.6s ease;
+  animation: heightAuto 0.6s ease;
+}
+
+@keyframes heightAuto {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: auto;
+  }
+}
+
+.content image {
+  display: block;
+  width: 47%;
+}
+
+.con-img {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-li:active .title {
+  color: #acacac;
+}
