@@ -1,1 +1,18 @@
- 
+<view class='app-body'>
+  <image mode='widthFix' src='https://ws1.sinaimg.cn/large/e83d3594gy1fvp3y81lvdj215o0ikwgl.jpg' class='banner'></image>
+  <view class='about-con'>
+    <view wx:for="{{about}}" wx:key="index">
+      <view class='about-title'>{{item.title}}</view>
+      <view class='about-des' wx:for="{{item.des}}" wx:key="index">
+        <text decode='true'>{{item}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='shareCanvas-btnGroup'>
+    <view class='stress' bindtap="hrefUrl" data-url="../reward/index">打赏我们</view>
+  </view>
+  <view class='about-con'>
+    <view class='about-des text-center'>团队目前一个人设计、开发、维护项目，每天持续更新这些壁纸不易，网上拿不到超清标准图，如果我们给你带来一丝美好，希望给我一些动力，多谢老铁!</view>
+  </view>
+  
+</view>

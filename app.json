@@ -5,7 +5,8 @@
     "pages/calendar/index",
     "pages/design/index",
     "pages/about/index",
-    "pages/update/index"
+    "pages/update/index",
+    "pages/reward/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

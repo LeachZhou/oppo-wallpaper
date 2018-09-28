@@ -9,7 +9,8 @@ Page({
   data: {
     list: [],
     activeHeight: -1,
-    rpx: 0
+    rpx: 0,
+    page: 1 //分页
   },
   onLoad() {
     let _this = this;
@@ -55,7 +56,6 @@ Page({
    * 数据请求
    */
   fecthBmob(_this, fn, page) {
-    app.loading();
     bmobInfo.update((res) => {
       if (res.length) {
         fn(res);
@@ -70,6 +70,28 @@ Page({
       }
     }, page);
   },
+  onPullDownRefresh() {
+    let _this = this;
+    _this.fecthBmob(_this, () => {
+      wx.stopPullDownRefresh();
+    });
+  },
+  // onReachBottom() {
+  //   let _this = this;
+  //   let _lastTime = null,
+  //     gapTime = 1500;
+  //   let _nowTime = +new Date()
+  //   if (_nowTime - _lastTime > gapTime || !_lastTime) {
+  //     app.loading();
+  //     _this.fecthBmob(_this, () => {
+  //       app.loadend();
+  //       _this.setData({
+  //         page: _this.data.page + 1
+  //       });
+  //     }, _this.data.page + 1);
+  //     _lastTime = _nowTime
+  //   }
+  // },
   tapList(e) {
     let _this = this;
     let targetIndex = 0; //目标索引 指的是想要打开或者关闭的索引

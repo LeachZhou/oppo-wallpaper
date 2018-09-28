@@ -74,17 +74,11 @@ module.exports = {
 
   },
   update(fn, page) {
-    page = page || 1; //分页，默认第一页
     const query = Bmob.Query('update');
-    let limit = 10 * page;
-    let skip = 10 * (page - 1);
-    query.limit(limit);
-    query.skip(skip);
     query.order("-date");
     query.find().then((res) => {
       fn(res);
     }).catch((res) => {
-      console.log(res)
       wx.showToast({
         title: '请求失败',
         image: '../../image/err.png',
@@ -93,5 +87,40 @@ module.exports = {
         duration: 5000
       })
     })
-  }
+  },
+  reward(fn) {
+    const query = Bmob.Query('sponsor');
+    query.find().then((res) => {
+      fn(res);
+    }).catch((res) => {
+      wx.showToast({
+        title: '请求失败',
+        image: '../../image/err.png',
+        icon: 'none',
+        mask: true,
+        duration: 5000
+      })
+    })
+  },
+  // update(fn, page) {
+  //   page = page || 1; //分页，默认第一页
+  //   const query = Bmob.Query('update');
+  //   let limit = 10 * page;
+  //   let skip = 10 * (page - 1);
+  //   query.limit(limit);
+  //   query.skip(skip);
+  //   query.order("-date");
+  //   query.find().then((res) => {
+  //     fn(res);
+  //   }).catch((res) => {
+  //     console.log(res)
+  //     wx.showToast({
+  //       title: '请求失败',
+  //       image: '../../image/err.png',
+  //       icon: 'none',
+  //       mask: true,
+  //       duration: 5000
+  //     })
+  //   })
+  // }
 }

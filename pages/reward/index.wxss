@@ -14,16 +14,6 @@
   line-height: 2;
 }
 
-.about-title {
-  font-size: 30rpx;
-  color: #428bfe;
-}
-
-.about-des {
-  font-size: 26rpx;
-  color: #000000;
-}
-
 .shareCanvas-btnGroup {
   width: 100%;
   height: 100rpx;
@@ -52,7 +42,19 @@
   color: #fff;
 }
 
-
-.text-center{
+.text-center {
   text-align: center;
+}
+
+.reward-img {
+  background: #fcfcfc;
+  width: 640rpx;
+  height: 640rpx;
+}
+
+.about-des {
+  font-size: 26rpx;
+  color: #000000;
+  margin-bottom: 60rpx;
+  line-height: 2;
 }

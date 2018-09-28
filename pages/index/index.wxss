@@ -418,6 +418,7 @@
   text-align: center;
   font-weight: bold;
   box-shadow: 0 0 40rpx #c6d8ff;
+  border: 0;
 }
 .shareCanvas-btnGroup .stress {
   background: #1f81e3;

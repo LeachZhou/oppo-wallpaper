@@ -1,0 +1,13 @@
+<view class='app-body'>
+  <image mode='widthFix' src='https://ws1.sinaimg.cn/large/e83d3594gy1fvp3y81lvdj215o0ikwgl.jpg' class='banner'></image>
+  <view class='about-con text-center'>
+    <image src='{{rewardImg}}' mode='widthFix' class='reward-img' bindtap='previewImg' data-src='{{rewardImg}}'></image>
+  </view>
+  <view class='about-des text-center'>
+    <view>点击上方赞赏码后长按保存</view>
+    <view>打开微信的扫一扫</view>
+    <view>点击扫一扫右上角，选择从相册选择二维码</view>
+    <view>识别后随意打赏啦~</view>
+  </view>
+
+</view>

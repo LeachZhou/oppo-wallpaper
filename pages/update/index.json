@@ -1,4 +1,8 @@
 {
   "navigationBarTitleText": "更新记录",
-  "navigationBarBackgroundColor": "#f8f8f8"
+  "navigationBarBackgroundColor": "#f8f8f8",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 100,
+  "backgroundColor": "#f8f8f8",
+  "backgroundTextStyle": "dark"
 }
