@@ -274,7 +274,7 @@ Page({
     })
   },
   /**
-   * 商务合作 客服功能
+   * 转发功能
    */
   onShareAppMessage(ops) {
     let _this = this;

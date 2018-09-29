@@ -28,7 +28,7 @@
   <view class='shareCanvas' style="display: {{shareCanvas?'block':'none'}};">
     <view class='masking' bindtap='maskingTap'>
       <!-- <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #000;"/> -->
-      <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #f7f7f7 url(../../image/canvasbg.png) repeat;"/>
+      <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #f7f7f7 url(../../image/canvasbg.png) repeat;" />
       <view class='shareCanvas-btnGroup'>
         <button>返回</button>
         <button class='stress'>保存</button>

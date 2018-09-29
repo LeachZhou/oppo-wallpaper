@@ -1,12 +1,13 @@
 {
   "pages":[
+    "pages/reward/index",
     "pages/index/index",
     "pages/logs/logs",
     "pages/calendar/index",
     "pages/design/index",
     "pages/about/index",
-    "pages/update/index",
-    "pages/reward/index"
+    "pages/update/index"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",

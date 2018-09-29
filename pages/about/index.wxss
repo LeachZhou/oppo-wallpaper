@@ -42,7 +42,7 @@
   line-height: 60rpx;
   text-align: center;
   font-weight: bold;
-  box-shadow: 0 0 40rpx #c6d8ff;
+  box-shadow: 0 0 40rpx #1f81e3;
   border: 0;
   margin: 0 auto;
 }
