@@ -37,6 +37,7 @@ Page({
     blank: false, //是否为空
     activeInfo: {}, //当前显示的大图
     scene: '', //微信小程序二维码相关scene
+    isOpacity: false //swiper内除图片其他元素是否透明
   },
   onLoad(options) {
     //获取指定DOM信息
@@ -57,14 +58,55 @@ Page({
       }
     });
     //请求数据
-    _this.fecthBmob(_this, (res) => {
+    _this.fecthBmob(_this, (res, time1) => {
       _this.setData({
         swiperCurrent: 0,
         activeInfo: res[0]
       }, () => {
         app.loadend();
+        // let time2 = Number(new Date());
+        // wx.showLoading({
+        //   title: `时间：${time2 - time1}`,
+        //   mask: true
+        // })
       });
     });
+  },
+  /**
+   * 数据请求
+   */
+  fecthBmob(_this, fn, day) {
+    wx.showLoading({
+      title: '数据加载中...',
+      mask: true
+    })
+    let time1 = Number(new Date());
+    bmobInfo.index((res) => {
+      wx.showLoading({
+        title: '渲染图片中...',
+        mask: true
+      })
+      if (res.length) {
+        let flatArr = [...res];
+        _this.setData({
+          allResList: flatArr,
+          viewList: flatArr,
+          allResListLength: flatArr.length
+        });
+      } else {
+        wx.showToast({
+          title: '总是空空如也~',
+          image: '../../image/blank.png',
+          icon: 'none',
+          mask: true,
+          duration: 2000
+        })
+        _this.setData({
+          blank: true
+        });
+      }
+      fn(res, time1);
+    }, day);
   },
   animationfinish(res) {
     let _this = this;
@@ -100,7 +142,8 @@ Page({
     let x = e.changedTouches[0].pageX;
     let y = e.changedTouches[0].pageY;
     _this.setData({
-      slideX: x
+      slideX: x,
+      isOpacity: true
     })
   },
   /**
@@ -125,7 +168,7 @@ Page({
           image: '../../image/despise.png',
           icon: 'none',
           mask: true,
-          duration: 5000
+          duration: 2000
         })
       }
     }
@@ -136,6 +179,9 @@ Page({
     } else if (_this.data.previewCurrentImg == (_this.data.allResListLength - 1) && _this.data.currentImg == (_this.data.allResListLength - 1) && x < _this.data.slideX) {
       _this.nextLoad();
     }
+    _this.setData({
+      isOpacity: false
+    })
   },
   /**
    * 轮播滑动
@@ -174,34 +220,6 @@ Page({
     wx.navigateTo({
       url: e.currentTarget.dataset.url
     })
-  },
-  /**
-   * 数据请求
-   */
-  fecthBmob(_this, fn, day) {
-    app.loading();
-    bmobInfo.index((res) => {
-      if (res.length) {
-        let flatArr = [...res];
-        _this.setData({
-          allResList: flatArr,
-          viewList: flatArr,
-          allResListLength: flatArr.length
-        });
-      } else {
-        wx.showToast({
-          title: '总是空空如也~',
-          image: '../../image/blank.png',
-          icon: 'none',
-          mask: true,
-          duration: 5000
-        })
-        _this.setData({
-          blank: true
-        });
-      }
-      fn(res);
-    }, day);
   },
   /**
    * 加载下一天
@@ -287,7 +305,7 @@ Page({
       imageUrl = ops.target.dataset.src;
     } else {
       title = '仪式感壁纸';
-      imageUrl = 'http://bmob-cdn-21525.b0.upaiyun.com/2018/09/18/6dd1101a4068d5f8805e0168215f9f87.png';
+      imageUrl = 'https://ws1.sinaimg.cn/large/e83d3594gy1fvricfp4zlj20dc0aodh6.jpg';
     }
     return {
       title: title,
@@ -554,6 +572,20 @@ Page({
     })
     let ctx = wx.createCanvasContext('canvas');
     ctx.draw(true); //清空画布
+  },
+  /**
+   * 打赏
+   */
+  rewardPreviewImg() {
+    let _this = this;
+    _this.menuTap();
+    bmobInfo.reward((res) => {
+      let arr = [];
+      arr.push(res[0].img);
+      wx.previewImage({
+        urls: arr
+      })
+    });
   }
 })
 

@@ -65,6 +65,7 @@
   margin: 20rpx auto;
   background: #fff;
   box-shadow: 0 0 50rpx #c6d8ff;
+  border-radius: 20rpx;
 }
 
 .logo2 {
@@ -74,6 +75,7 @@
   margin: 20rpx auto;
   background: #fff;
   box-shadow: 0 0 50rpx #c6d8ff;
+  border-radius: 20rpx;
 }
 
 .color-card {

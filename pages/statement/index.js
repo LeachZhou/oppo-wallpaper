@@ -7,15 +7,17 @@ const app = getApp();
 
 Page({
   data: {
-
+     
   },
   onLoad() {
-    let _this = this;
-    _this.previewImg();
+     
   },
-  previewImg() {
+  /**
+   * 打赏
+   */
+  rewardPreviewImg() {
     let _this = this;
-    let arr = [];
+    _this.menuTap();
     bmobInfo.reward((res) => {
       let arr = [];
       arr.push(res[0].img);

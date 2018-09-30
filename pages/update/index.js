@@ -44,7 +44,7 @@ Page({
         obj.content = [...desArr];
         arr.push(obj);
       }
-      console.log(arr)
+      // console.log(arr)
       _this.setData({
         list: arr,
       }, () => {

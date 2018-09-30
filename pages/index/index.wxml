@@ -3,28 +3,32 @@
   <view class='top'>
     <image src='../../image/YSG-x-logo.png'></image>
   </view>
-  <swiper class='swiper' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange" previous-margin="85rpx" next-margin="85rpx" bindtouchstart='slideStart' bindtouchend='slideEnd'
-    current='{{swiperCurrent}}' skip-hidden-item-layout="true">
-    <block wx:for="{{allResList}}" wx:key="index" wx:for-index="idx">
-      <swiper-item>
-        <view class="swiper-item-con {{currentImg == idx?'swiper-active':''}}">
-          <button class='share-btn' open-type="share" plain='true' data-src="{{item.img}}" data-title="{{item.title}}"></button>
-          <view class='share'>
-            <image src='../../image/share.png'></image>
+  <view class='swiper'>
+    <swiper class='swiper' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange" previous-margin="85rpx" next-margin="85rpx" bindtouchstart='slideStart' bindtouchend='slideEnd'
+      current='{{swiperCurrent}}' skip-hidden-item-layout="true">
+      <block wx:for="{{allResList}}" wx:key="index" wx:for-index="idx">
+        <swiper-item>
+          <view class="swiper-item-con {{currentImg == idx?'swiper-active':''}}">
+            <image src="{{item.img}}" data-src="{{item.img}}" class="change-img" mode="aspectFill" bindtap='previewImg'></image>
           </view>
-          <!-- <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo='bindGetUserInfo'></button> -->
-          <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo=''></button>
-          <view class='f' catchtap='canvasUserInfo'>
-            <image src='../../image/f.png'></image>
-          </view>
-          <image src="{{item.img}}" data-src="{{item.img}}" class="change-img" mode="aspectFill" bindtap='previewImg'></image>
-          <view class='change-img-title'>{{item.title}}</view>
-          <view class='change-img-author'>{{item.author}}</view>
-          <view class='change-img-time'>{{item.time}}</view>
-        </view>
-      </swiper-item>
-    </block>
-  </swiper>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class='swiperOther' style='opacity:{{isOpacity?0:1}}'>
+      <button class='share-btn' open-type="share" plain='true' data-src="{{activeInfo.img}}" data-title="{{activeInfo.title}}"></button>
+      <view class='share'>
+        <image src='../../image/share.png'></image>
+      </view>
+      <!-- <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo='bindGetUserInfo'></button> -->
+      <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo=''></button>
+      <view class='f' catchtap='canvasUserInfo'>
+        <image src='../../image/f.png'></image>
+      </view>
+      <view class='change-img-title'>{{activeInfo.title}}</view>
+      <view class='change-img-author'>{{activeInfo.author}}</view>
+      <view class='change-img-time'>{{activeInfo.time}}</view>
+    </view>
+  </view>
   <view class='shareCanvas' style="display: {{shareCanvas?'block':'none'}};">
     <view class='masking' bindtap='maskingTap'>
       <!-- <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #000;"/> -->
@@ -41,29 +45,12 @@
     </view>
     <view class='menu-popup' style="display: {{menuPopup ? 'none' : 'block' }};">
       <view bindtap="hrefUrl" data-url="../calendar/index">
-        <image src='../../image/calendar.png'></image>
-        日期查找
+       <image src='../../image/calendar.png'></image>
+       日期查找
       </view>
-      <view>
-        <button open-type="contact" class='originalContact' bindtap="menuTap" />
-        <image src='../../image/contact.png'></image>
-        在线客服
-      </view>
-      <view bindtap="hrefUrl" data-url="../update/index">
-        <image src='../../image/update.png'></image>
-        更新记录
-      </view>
-      <view bindtap="hrefUrl" data-url="../design/index">
-        <image src='../../image/design.png'></image>
-        设计指南
-      </view>
-      <view bindtap="hrefUrl" data-url="../about/index">
-        <image src='../../image/about.png'></image>
-        关于我们
-      </view>
-      <view bindtap="hrefUrl" data-url="../reward/index">
-        <image src='../../image/reward.png'></image>
-        打赏我们
+      <view bindtap="hrefUrl" data-url="../setting/index">
+        <image src='../../image/setting.png'></image>
+        设置中心
       </view>
     </view>
   </view>

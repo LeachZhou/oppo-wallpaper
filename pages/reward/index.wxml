@@ -6,34 +6,23 @@
     </view>
     <view class='mobile-body'>
       <view class="mobile-body-content">
-        <view class="mock-msg-row" class="msg-row">
-          <view class="mock-msg" class="msg">很高兴遇见你</view>
+        <view class="msg-row msg-xianzhe">
+          <view class="msg msg-bounce-in-left">很高兴遇见你</view>
+        </view>
+        <view class="msg-row msg-me">
+          <view class="msg msg-bounce-in-right">我也是！</view>
+        </view>
+        <view class="msg-row msg-me">
+          <view class="msg msg-bounce-in-right">如何进行打赏?</view>
         </view>
         <view class="msg-row msg-xianzhe">
-          <view class="msg msg-bounce-in-left" style="width: 86px; height: 24px;">很高兴遇见你</view>
+          <view class="msg msg-bounce-in-left">点击下方我要打赏，长按识别二维码即可进行打赏</view>
+        </view>
+        <view class="msg-row msg-xianzhe">
+          <view class="msg msg-bounce-in-left preview-img" bindtap='previewImg'>【我要打赏】</view>
         </view>
       </view>
     </view>
   </view>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <view class='about-des text-center'>
-    <view>点击上方按钮</view>
-    <view>回复【1】，获取赞赏码。</view>
-    <view>点击图片，长按识别二维码</view>
-    <view>识别后随意打赏啦~</view>
-  </view>
-
+ 
 </view>
