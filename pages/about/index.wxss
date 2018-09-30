@@ -21,7 +21,7 @@
 
 .about-des {
   font-size: 26rpx;
-  color: #000000;
+  color: #000;
 }
 
 .shareCanvas-btnGroup {
@@ -52,7 +52,19 @@
   color: #fff;
 }
 
-
-.text-center{
+.text-center {
   text-align: center;
+}
+
+.head {
+  width: 100rpx;
+  height: 100rpx;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.info-des {
+  color: #cacaca;
+  font-size: 30rpx;
+  line-height: 2;
 }

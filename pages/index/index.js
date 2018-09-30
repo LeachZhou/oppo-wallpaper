@@ -8,7 +8,6 @@ const app = getApp();
 
 Page({
   data: {
-    mainList: [],
     allResList: [],
     allResListLength: 0,
     viewList: [],
