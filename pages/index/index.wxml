@@ -19,8 +19,8 @@
       <view class='share'>
         <image src='../../image/share.png'></image>
       </view>
-      <!-- <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo='bindGetUserInfo'></button> -->
-      <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo=''></button>
+      <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo='bindGetUserInfo'></button>
+      <!-- <button open-type="getUserInfo" class='getUserInfo-btn' bindgetuserinfo=''></button> -->
       <view class='f' catchtap='canvasUserInfo'>
         <image src='../../image/f.png'></image>
       </view>
@@ -31,12 +31,12 @@
   </view>
   <view class='shareCanvas' style="display: {{shareCanvas?'block':'none'}};">
     <view class='masking' bindtap='maskingTap'>
-      <!-- <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #000;"/> -->
-      <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #f7f7f7 url(../../image/canvasbg.png) repeat;" />
-      <view class='shareCanvas-btnGroup'>
-        <button>返回</button>
-        <button class='stress'>保存</button>
-      </view>
+      <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #f7f7f7;"/>
+      <!-- <canvas canvas-id='canvas' class='canvas' catchtap='return;' style="background: #f7f7f7 url(../../image/canvasbg.png) repeat;" /> -->
+      <cover-view class='shareCanvas-btnGroup'>
+        <cover-view>返回</cover-view>
+        <cover-view class='stress'>保存</cover-view>
+      </cover-view>
     </view>
   </view>
   <view class='menu-group'>

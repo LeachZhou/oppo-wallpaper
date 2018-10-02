@@ -411,7 +411,7 @@
   justify-content: center;
 }
 
-.shareCanvas-btnGroup button {
+.shareCanvas-btnGroup cover-view {
   width: 240rpx;
   height: 60rpx;
   background: #fff;
@@ -423,6 +423,7 @@
   font-weight: bold;
   box-shadow: 0 0 40rpx #c6d8ff;
   border: 0;
+  margin: 0 auto;
 }
 .shareCanvas-btnGroup .stress {
   background: #1f81e3;

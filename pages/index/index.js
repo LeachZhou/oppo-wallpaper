@@ -36,7 +36,9 @@ Page({
     blank: false, //是否为空
     activeInfo: {}, //当前显示的大图
     scene: '', //微信小程序二维码相关scene
-    isOpacity: false //swiper内除图片其他元素是否透明
+    isOpacity: false, //swiper内除图片其他元素是否透明,
+    canvasHeadUrl: '', //canvas头像地址
+    canvasImgUrl: '', //canvas图片地址
   },
   onLoad(options) {
     //获取指定DOM信息
@@ -433,6 +435,13 @@ Page({
     })
     app.loading();
     let ctx = wx.createCanvasContext('canvas');
+    //背景绘制
+    ctx.save()
+    let pat = ctx.createPattern('../../image/canvasbg.png', "repeat");
+    ctx.rect(0, 0, _this.data.screenWidth, 700);
+    ctx.fillStyle = pat;
+    ctx.fill();
+    ctx.restore()
     //头像绘制
     ctx.save()
     ctx.beginPath()
@@ -442,12 +451,24 @@ Page({
     ctx.stroke();
     ctx.closePath();
     ctx.clip()
-    ctx.drawImage(avatarUrl, 0, 0, 132, 132, (_this.data.screenWidth - 50) / 2, 15, 50, 50)
+    wx.downloadFile({
+      url: avatarUrl,
+      success(res){
+        console.log(res)
+        _this.setData({
+          canvasHeadUrl: res.path
+        })
+      }
+    })
+    console.log(_this.data.canvasHeadUrl)
+    ctx.drawImage(_this.data.canvasHeadUrl, 0, 0, 132, 132, (_this.data.screenWidth - 50) / 2, 15, 50, 50);
+    ctx.draw(true)
     ctx.restore()
     //用户名绘制
     ctx.save()
     ctx.beginPath()
     ctx.fillStyle = "#838b93";
+    ctx.setFontSize(13);
     ctx.fillText(nickName, (_this.data.screenWidth - ctx.measureText(nickName).width) / 2, 85)
     ctx.closePath();
     ctx.restore()
@@ -466,14 +487,15 @@ Page({
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
     ctx.clip();
-    // wx.getImageInfo({
-    //   src: _this.data.activeInfo.img,
-    //   success: (res) => {
-    //     // 下载成功 即可获取到本地路径
-    //     ctx.drawImage(res.path, 0, 1920 / 10, 1235, 2195, x, y, 320 * rpx, 320 / 1080 * 1920 * rpx);
-    //   }
-    // })
-    ctx.drawImage(_this.data.activeInfo.img, 0, 1920 / 10, 1235, 2195, x, y, 320 * rpx, 320 / 1080 * 1920 * rpx);
+    wx.getImageInfo({
+      src: _this.data.activeInfo.img,
+      success: (res) => {
+        console.log(res)
+        // 下载成功 即可获取到本地路径
+        ctx.drawImage(res.path, 0, 1920 / 10, 1235, 2195, x, y, 320 * rpx, 320 / 1080 * 1920 * rpx);
+      }
+    })
+    // ctx.drawImage(_this.data.activeInfo.img, 0, 1920 / 10, 1235, 2195, x, y, 320 * rpx, 320 / 1080 * 1920 * rpx);
     ctx.restore();
 
 
@@ -509,8 +531,9 @@ Page({
     ctx.save()
     ctx.beginPath()
     ctx.fillStyle = "#838b93";
+    ctx.setFontSize(13);
     let qr_txt = '长按二维码，使用小程序';
-    ctx.fillText(qr_txt, (_this.data.screenWidth - ctx.measureText(qr_txt).width) / 2, 610);
+    ctx.fillText(qr_txt, (_this.data.screenWidth - ctx.measureText(qr_txt).width) / 2, 615);
     ctx.closePath();
     ctx.restore();
 
