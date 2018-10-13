@@ -109,6 +109,17 @@ function ArrSplit(arr, str, num) {
  * @param res OPPO数据
  */
 function oppoWallpaperJson(res) {
+  var jsonArr = [];
+  if (res.match('@_@')){
+    let arrNew = res.split('@_@')[0].split('_');
+    var jso = {};
+    jso["time"] = arrNew[0];
+    jso["title"] = arrNew[1];
+    jso["author"] = arrNew[2];
+    jso["img"] = arrNew[3];
+    jsonArr.push(jso);
+  }
+  res = res.substring(res.indexOf('@_@') + 3);
   //console.log(res);
   if (res.match('图/')){
     res.replace("图/", "图文/");
@@ -145,7 +156,6 @@ function oppoWallpaperJson(res) {
     // imgEnd.push(imgEndTemp[i] + '?uid=' + uid);
     imgEnd.push(imgEndTemp[i]);
   }
-  var jsonArr = [];
   for (var i = 0; i < imgEnd.length; i++) {
     var json = {};
     json["time"] = timeEnd;
