@@ -1,6 +1,7 @@
-.app-body{
+.app-body {
   background: #f8f8f8;
 }
+
 .icon {
   clear: both;
   float: left;
@@ -160,4 +161,48 @@
 .img-promote {
   width: 100%;
   display: block;
+}
+
+.big-btn-group {
+  width: 100%;
+  display: flex;
+}
+
+.big-btn-flex {
+  flex: 1;
+}
+
+.big-btn {
+  position: relative;
+  text-align: left;
+  margin: 50rpx 47rpx 20rpx 93rpx;
+  padding: 20rpx;
+  background: linear-gradient(to right, #35ac37, #86e688);
+  color: #fff;
+  border-radius: 30rpx;
+}
+
+.big-btn-flex:nth-child(2) .big-btn {
+  margin: 50rpx 93rpx 20rpx 47rpx;
+  background: linear-gradient(to right, #ea9518, #f3ca8b);
+}
+
+.big-btn .title {
+  font-size: 28rpx;
+  z-index: 2;
+}
+
+.big-btn .des {
+  font-size: 24rpx;
+  z-index: 2;
+}
+
+.big-btn image {
+  content: '';
+  position: absolute;
+  right: 10rpx;
+  bottom: 0;
+  width: 80rpx;
+  height: 80rpx;
+  z-index: 0;
 }

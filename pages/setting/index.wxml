@@ -1,4 +1,20 @@
 <view class='app-body'>
+  <view class='big-btn-group'>
+    <view class='big-btn-flex'>
+      <view class='big-btn'>
+        <view class='title'>打赏我们</view>
+        <view class='des'>回复1</view>
+        <image src='../../image/money.png'></image>
+      </view>
+    </view>
+    <view class='big-btn-flex'>
+      <view class='big-btn'>
+        <view class='title'>加入微信群</view>
+        <view class='des'>回复2</view>
+        <image src='../../image/weixin.png'></image>
+      </view>
+    </view>
+  </view>
   <view class="weui-cells">
     <view class="weui-cell weui-cell_access" bindtap="hrefUrl" data-url="../design/index">
       <view class="weui-cell__hd">
@@ -79,7 +95,7 @@
       </view>
     </view>
     <view class="weui-cell weui-cell_access" bindtap="rewardPreviewImg">
-    <!-- <view class="weui-cell weui-cell_access" bindtap="hrefUrl" data-url="../reward/index"> -->
+      <!-- <view class="weui-cell weui-cell_access" bindtap="hrefUrl" data-url="../reward/index"> -->
       <view class="weui-cell__hd">
         <image src="../../image/reward.png"></image>
       </view>

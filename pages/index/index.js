@@ -43,6 +43,11 @@ Page({
   onLoad(options) {
     //获取指定DOM信息
     let _this = this;
+    if (options.finish) {
+      wx.navigateBack({
+        delta: 1
+      })
+    }
     // options 中的 scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
     let scene = decodeURIComponent(options.scene)
     _this.setData({
@@ -58,20 +63,48 @@ Page({
         });
       }
     });
-    //请求数据
-    _this.fecthBmob(_this, (res, time1) => {
-      _this.setData({
-        swiperCurrent: 0,
-        activeInfo: res[0]
-      }, () => {
-        app.loadend();
-        // let time2 = Number(new Date());
-        // wx.showLoading({
-        //   title: `时间：${time2 - time1}`,
-        //   mask: true
-        // })
-      });
-    });
+    wx.getNetworkType({
+      success: function(res) {
+        let net = 0;
+        // 返回网络类型, 有效值：
+        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+        if (res.networkType == 'wifi') {
+          net = 1;
+        } else {
+          wx.showModal({
+            title: '🔫扔了一个98K给你',
+            content: '当前没有处于WIFI环境下，2K超清壁纸流量很大，要继续在非WIFI环境下使用吗？',
+            cancelText: '退出',
+            success(res) {
+              if (res.confirm) {
+                net = 1;
+              } else if (res.cancel) {
+                wx.navigateTo({
+                  url: '../index/index?finish=true'
+                })
+              }
+            }
+          })
+        }
+        if (net) {
+          //请求数据
+          _this.fecthBmob(_this, (res, time1) => {
+            _this.setData({
+              swiperCurrent: 0,
+              activeInfo: res[0]
+            }, () => {
+              app.loadend();
+              // let time2 = Number(new Date());
+              // wx.showLoading({
+              //   title: `时间：${time2 - time1}`,
+              //   mask: true
+              // })
+            });
+          });
+        }
+      }
+    })
+
   },
   /**
    * 数据请求
@@ -211,6 +244,16 @@ Page({
       current: e.currentTarget.dataset.src, // 当前显示图片的http链接
       urls: arr // 需要预览的图片http链接列表
     })
+  },
+  /**
+   * 加入微信群
+   */
+  wxGroup(e) {
+    let _this = this;
+    _this.setData({
+      menuPopup: false
+    });
+    _this.hrefUrl(e);
   },
   /**
    * 页面跳转
@@ -453,7 +496,7 @@ Page({
     ctx.clip()
     wx.downloadFile({
       url: avatarUrl,
-      success(res){
+      success(res) {
         console.log(res)
         _this.setData({
           canvasHeadUrl: res.path

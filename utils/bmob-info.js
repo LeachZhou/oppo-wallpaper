@@ -73,6 +73,9 @@ module.exports = {
     })
 
   },
+  /**
+   * 更新
+   */
   update(fn, page) {
     const query = Bmob.Query('update');
     query.order("-date");
@@ -88,8 +91,28 @@ module.exports = {
       })
     })
   },
+  /**
+   * 打赏
+   */
   reward(fn) {
     const query = Bmob.Query('sponsor');
+    query.find().then((res) => {
+      fn(res);
+    }).catch((res) => {
+      wx.showToast({
+        title: '请求失败',
+        image: '../../image/err.png',
+        icon: 'none',
+        mask: true,
+        duration: 5000
+      })
+    })
+  },
+  /**
+   * 微信群
+   */
+  wxgroup(fn) {
+    const query = Bmob.Query('wxgroup');
     query.find().then((res) => {
       fn(res);
     }).catch((res) => {

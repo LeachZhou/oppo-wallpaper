@@ -54,11 +54,11 @@
       </view>
     </view>
   </view>
-  <text class='left-btn' wx:if='{{leftBtn}}' style="transform: translateX({{currentImg==0?'0':'-80'}}rpx);">加载下一天</text>
-  <text class='right-btn' style="transform: translateX({{currentImg==(allResListLength-1)?'0':'80'}}rpx);">加载上一天</text>
-  <!-- <view class='bottomTip'>
-    (〃'▽'〃) 左滑下一张
-  </view> -->
+  <text class='left-btn' wx:if='{{leftBtn}}' style="transform: translateX({{currentImg==0?'0':'-80'}}rpx);">加载后一天</text>
+  <text class='right-btn' style="transform: translateX({{currentImg==(allResListLength-1)?'0':'80'}}rpx);">加载前一天</text>
+  <view class='bottomTip' bindtap="wxGroup" data-url="../setting/index">
+    🔥 我要加入壁纸群 🔥
+  </view>
   <view class='bottom'>
     Copyright © 壁纸资源来自 OPPO锁屏杂志，未经允许禁止商用、二次上传以及转载。
   </view>

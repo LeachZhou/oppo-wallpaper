@@ -5,8 +5,4 @@
       <image mode="aspectFill" src='{{itemImg.img}}' data-src="{{itemImg.img}}" wx:for="{{item.data}}" wx:for-item="itemImg" wx:key="itemIndex" style="width: {{width}}px;height: {{height}}px;background: {{bg[itemIndex]}};" bindtap="previewImg" lazy-load='true'></image>
     </view>
   </view>
-  <view class='calendarOverTip' wx:if='{{imgNumEndTips}}'>
-    <image src='../../image/wocao.jpg'></image>
-    <view class='tips-txt'>所有的壁纸都被你看完了，挺牛掰啊！</view>
-  </view>
 </view>

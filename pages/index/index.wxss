@@ -1,8 +1,9 @@
 /**index.wxss**/
 
 .image-con {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  /* overflow: hidden; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,8 +136,7 @@
 .bottomTip {
   position: absolute;
   bottom: 110rpx;
-  width: 284rpx;
-  height: 50rpx;
+  padding: 0 20rpx;
   background: #fff;
   border-radius: 50rpx 0 50rpx 50rpx;
   color: #1f81e3;
@@ -473,6 +473,7 @@
   justify-content: center;
   transition: all 0.2s ease;
   transform: translateX(-80rpx);
+  overflow: auto;
 }
 
 .right-btn {
@@ -490,6 +491,7 @@
   box-shadow: 0 0 40rpx #c6d8ff;
   transition: all 0.2s ease;
   transform: translateX(80rpx);
+  overflow: auto;
 }
 
 .swiperOther{
