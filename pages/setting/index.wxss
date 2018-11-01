@@ -169,22 +169,23 @@
 }
 
 .big-btn-flex {
+  position: relative;
   flex: 1;
 }
 
 .big-btn {
   position: relative;
   text-align: left;
-  margin: 50rpx 47rpx 20rpx 93rpx;
+  margin: 30rpx 47rpx 0rpx 93rpx;
   padding: 20rpx;
-  background: linear-gradient(to right, #35ac37, #86e688);
+  background: linear-gradient(to right, #ea9518, #f3ca8b);
   color: #fff;
   border-radius: 30rpx;
 }
 
 .big-btn-flex:nth-child(2) .big-btn {
-  margin: 50rpx 93rpx 20rpx 47rpx;
-  background: linear-gradient(to right, #ea9518, #f3ca8b);
+  margin: 30rpx 93rpx 0rpx 47rpx;
+  background: linear-gradient(to right, #35ac37, #86e688);
 }
 
 .big-btn .title {
@@ -205,4 +206,26 @@
   width: 80rpx;
   height: 80rpx;
   z-index: 0;
+}
+
+.keyContact {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 376rpx;
+  padding: 30rpx 47rpx 0rpx 93rpx;
+  height: 138rpx;
+  opacity: 0;
+  z-index: 99;
+}
+
+.big-btn-flex:nth-child(2) .keyContact {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 376rpx;
+  padding: 30rpx 93rpx 0rpx 47rpx;
+  height: 138rpx;
+  opacity: 0;
+  z-index: 99;
 }

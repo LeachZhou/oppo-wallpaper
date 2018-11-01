@@ -1,6 +1,7 @@
 <view class='app-body'>
   <view class='big-btn-group'>
     <view class='big-btn-flex'>
+      <button open-type="contact" class='keyContact' />
       <view class='big-btn'>
         <view class='title'>打赏我们</view>
         <view class='des'>回复1</view>
@@ -8,6 +9,7 @@
       </view>
     </view>
     <view class='big-btn-flex'>
+      <button open-type="contact" class='keyContact' />
       <view class='big-btn'>
         <view class='title'>加入微信群</view>
         <view class='des'>回复2</view>
