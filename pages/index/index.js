@@ -1,5 +1,5 @@
-var bmobInfo = require('../../utils/bmob-info.js');
-var util = require('../../utils/util.js');
+let bmobInfo = require('../../utils/bmob-info.js');
+let util = require('../../utils/util.js');
 bmobInfo.init();
 
 //index.js
@@ -8,19 +8,14 @@ const app = getApp();
 
 Page({
   data: {
-    allResList: [],
-    allResListLength: 0,
-    viewList: [],
-    screenHeight: 0,
-    screenWidth: 0,
-    imgscale: 1,
-    imgY: 0,
-    loading: false,
-    imgNumEndTips: false,
-    now: 0,
-    initOpacity: 0,
-    menuPopup: true,
-    slideX: 0,
+    allResList: [], //全部图片数组
+    allResListLength: 0,//全部图片数组长度
+    viewList: [], //预览图片数组
+    screenHeight: 0,//屏幕高度
+    screenWidth: 0,//屏幕宽度
+    now: 0, //当前图片的日期 用于加载前一天后一天
+    menuPopup: true,//菜单按钮显示
+    slideX: 0,//横向滑动像素
     shareCanvas: false,
     rpx: 0,
     indicatorDots: false,
@@ -306,10 +301,6 @@ Page({
    */
   nextLoad() {
     let _this = this;
-    _this.setData({
-      loading: false,
-      initOpacity: 0
-    });
     _this.fecthBmob(_this, (res) => {
       if (res.length) {
         _this.setData({

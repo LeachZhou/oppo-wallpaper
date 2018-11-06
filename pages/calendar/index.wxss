@@ -14,8 +14,17 @@
 }
 
 .img-list image {
-  width: 33.333%;
-  background: rgba(214, 214, 214, 0.801);
+  width: 100%;
+  height: 100%;
+}
+
+.img-list .loadImg {
+  opacity: 0;
+  transition: all 0.3s linear;
+}
+
+.img-list .active {
+  opacity: 1;
 }
 
 .calendarOverTip {
@@ -37,4 +46,8 @@
 .tips-txt {
   width: 320rpx;
   margin: 0 auto;
+}
+
+.picker{
+  margin: 20rpx;
 }
