@@ -229,3 +229,12 @@
   opacity: 0;
   z-index: 99;
 }
+
+.weui-cell__ft text {
+  font-size: 24rpx;
+  color: #ccccd1;
+}
+
+modal {
+  color: #808080;
+}

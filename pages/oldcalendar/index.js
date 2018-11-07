@@ -52,7 +52,7 @@ Page({
    * 搜索可选时间
    */
   dateFind(_this, fn) {
-    bmobInfo.newDateFind((res) => {
+    bmobInfo.dateFind((res) => {
       _this.setData({
         startTime: res[res.length - 1],
         endTime: res[0],
@@ -109,7 +109,7 @@ Page({
    * 接口请求
    */
   dateSelect(_this, fn, day) {
-    bmobInfo.newDateSelect((res) => {
+    bmobInfo.dateSelect((res) => {
       //设置图片背景颜色及图片是否显示数组
       let bgArr = _this.data.bg;
       bgArr.push(_this.getColor(res.length));

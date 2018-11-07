@@ -9,13 +9,13 @@ const app = getApp();
 Page({
   data: {
     allResList: [], //全部图片数组
-    allResListLength: 0,//全部图片数组长度
+    allResListLength: 0, //全部图片数组长度
     viewList: [], //预览图片数组
-    screenHeight: 0,//屏幕高度
-    screenWidth: 0,//屏幕宽度
+    screenHeight: 0, //屏幕高度
+    screenWidth: 0, //屏幕宽度
     now: 0, //当前图片的日期 用于加载前一天后一天
-    menuPopup: true,//菜单按钮显示
-    slideX: 0,//横向滑动像素
+    menuPopup: true, //菜单按钮显示
+    slideX: 0, //横向滑动像素
     shareCanvas: false,
     rpx: 0,
     indicatorDots: false,
@@ -109,33 +109,42 @@ Page({
       title: '数据加载中...',
       mask: true
     })
+    if (bmobInfo.dayjs().add(day, 'day') < bmobInfo.dayjs('2018-11-07 00:00:00')) {
+      bmobInfo.index((res) => {
+        _this.bombInfoIndex(_this, fn, res);
+      }, day);
+    } else {
+      bmobInfo.uploadWallResAna((res) => {
+        _this.bombInfoIndex(_this, fn, res);
+      }, day);
+    }
+  },
+  bombInfoIndex(_this, fn, res) {
     let time1 = Number(new Date());
-    bmobInfo.index((res) => {
-      wx.showLoading({
-        title: '渲染图片中...',
-        mask: true
+    wx.showLoading({
+      title: '渲染图片中...',
+      mask: true
+    })
+    if (res.length) {
+      let flatArr = [...res];
+      _this.setData({
+        allResList: flatArr,
+        viewList: flatArr,
+        allResListLength: flatArr.length
+      });
+    } else {
+      wx.showToast({
+        title: '总是空空如也~',
+        image: '../../image/blank.png',
+        icon: 'none',
+        mask: true,
+        duration: 2000
       })
-      if (res.length) {
-        let flatArr = [...res];
-        _this.setData({
-          allResList: flatArr,
-          viewList: flatArr,
-          allResListLength: flatArr.length
-        });
-      } else {
-        wx.showToast({
-          title: '总是空空如也~',
-          image: '../../image/blank.png',
-          icon: 'none',
-          mask: true,
-          duration: 2000
-        })
-        _this.setData({
-          blank: true
-        });
-      }
-      fn(res, time1);
-    }, day);
+      _this.setData({
+        blank: true
+      });
+    }
+    fn(res, time1);
   },
   animationfinish(res) {
     let _this = this;

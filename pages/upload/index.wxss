@@ -1,0 +1,16 @@
+.app-body {
+  text-align: center;
+}
+
+.banner {
+  display: block;
+  width: 100%;
+}
+
+.FileUpload {
+  width: 500rpx;
+  height: 500rpx;
+  line-height: 500rpx;
+  margin: 30rpx auto;
+  border: 1rpx dashed #cfcfcf;
+}

@@ -107,6 +107,20 @@
       <view class="weui-cell__ft">
       </view>
     </view>
+    <view class="weui-cell weui-cell_access" bindtap="uploadpwd">
+      <view class="weui-cell__hd">
+        <image src="../../image/about.png"></image>
+      </view>
+      <view class="weui-cell__bd">
+        <text>上传资源</text>
+      </view>
+      <view class="weui-cell__ft">
+        <text>除官方人员禁止入内</text>
+      </view>
+    </view>
+    <modal hidden="{{uploadPwdModalHidden}}" title="请认真输入" confirm-text="转账99.9元" cancel-text="取消" bindcancel="cancelM" bindconfirm="confirmM" data-url="../upload/index">
+      <input bindinput='uploadPwdInput' value="{{uploadPwd}}" placeholder="输入你的微信支付密码" focus='true'/>
+   </modal>
   </view>
   <image src='../../image/img_promote.png' mode='widthFix' class='img-promote'></image>
 </view>

@@ -5,8 +5,8 @@
         {{date}} <image src='../../image/down.png' mode="aspectFill"></image>
       </view>
     </picker>
-    <view class='old' bindtap="hrefUrl" data-url="../oldcalendar/index">进入旧版</view>
-    <image src='../../image/help.png' mode="aspectFill" class='help' catchtap='help'></image>
+    <!-- <view class='old' bindtap="hrefUrl" data-url="../oldcalendar/index">进入旧版</view>
+    <image src='../../image/help.png' mode="aspectFill" class='help' catchtap='help'></image> -->
   </view>
   <view wx:for="{{allResList}}" wx:key="index">
     <view class='img-list'>
