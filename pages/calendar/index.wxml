@@ -2,7 +2,7 @@
   <view class="section">
     <picker mode="date" value="{{date}}" start="{{startTime}}" end="{{endTime}}" bindchange="bindDateChange">
       <view class="picker">
-        {{date}} 
+        {{date}} <image src='../../image/down.png' mode="aspectFill"></image>
       </view>
     </picker>
   </view>

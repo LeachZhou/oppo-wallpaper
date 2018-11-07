@@ -11,6 +11,7 @@
 .img-list {
   display: flex;
   flex-wrap: wrap;
+  clear: both;
 }
 
 .img-list image {
@@ -48,6 +49,18 @@
   margin: 0 auto;
 }
 
-.picker{
-  margin: 20rpx;
+.picker {
+  position: relative;
+  padding: 20rpx 70rpx 20rpx 20rpx;
+  color: #5f5f5f;
+  background: #f5f5f5;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.picker image {
+  width: 40rpx;
+  height: 40rpx;
 }

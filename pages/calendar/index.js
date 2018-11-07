@@ -19,7 +19,7 @@ Page({
     isImgShow: [], //每个图片是否显示，二维数组,
     startTime: '2018-09-06', //时间选择器可选开始时间
     endTime: '2018-11-06', //时间选择器可选结束时间,
-    date: '2018-11-06', //当前时间 
+    date: '--年--月--日', //当前时间 
   },
   onLoad() {
     let _this = this;
@@ -38,7 +38,9 @@ Page({
     app.loading();
     _this.dateFind(_this, (res) => {
       _this.dateSelect(_this, () => {
-        app.loadend();
+        setTimeout(() => {
+          app.loadend();
+        }, 1000)
       }, res);
     });
 
@@ -168,7 +170,9 @@ Page({
     })
     app.loading();
     _this.dateSelect(_this, () => {
-      app.loadend();
+      setTimeout(()=>{
+        app.loadend();
+      },1000)
     }, e.detail.value);
   },
   navigateBack() {

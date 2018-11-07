@@ -21,7 +21,7 @@ Page({
     indicatorDots: false,
     autoplay: false,
     interval: 5000,
-    duration: 0,
+    duration: 500,
     currentImg: 0,
     previewCurrentImg: 0,
     swiperCurrent: 0,
