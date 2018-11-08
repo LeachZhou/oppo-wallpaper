@@ -3,7 +3,7 @@
     <view class='big-btn-flex'>
       <button open-type="contact" class='keyContact' />
       <view class='big-btn'>
-        <view class='title'>打赏我们</view>
+        <view class='title'>赏赐我们</view>
         <view class='des'>回复1</view>
         <image src='../../image/money.png'></image>
       </view>
@@ -11,7 +11,7 @@
     <view class='big-btn-flex'>
       <button open-type="contact" class='keyContact' />
       <view class='big-btn'>
-        <view class='title'>加入微信群</view>
+        <view class='title'>加入微信圈</view>
         <view class='des'>回复2</view>
         <image src='../../image/weixin.png'></image>
       </view>
@@ -102,7 +102,7 @@
         <image src="../../image/reward.png"></image>
       </view>
       <view class="weui-cell__bd">
-        <text>打赏我们</text>
+        <text>赏赐我们</text>
       </view>
       <view class="weui-cell__ft">
       </view>
