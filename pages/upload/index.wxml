@@ -1,5 +1,0 @@
-<view class='app-body'>
-  <image mode='widthFix' src='https://ws1.sinaimg.cn/large/e83d3594gy1fvp3y81lvdj215o0ikwgl.jpg' class='banner'></image>
-  <!-- <view class="FileUpload" catchtap='upload'>上传资源</view> -->
-  <!-- <view class="FileUpload" catchtap='uploadWallRes'>一键解析</view> -->
-</view>

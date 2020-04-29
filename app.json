@@ -1,21 +1,12 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/calendar/index",
-    "pages/oldcalendar/index",
-    "pages/upload/index",
-    "pages/setting/index",
-    "pages/logs/logs",
-    "pages/design/index",
-    "pages/about/index",
-    "pages/update/index",
-    "pages/reward/index",
-    "pages/statement/index"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "仪式感壁纸",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
