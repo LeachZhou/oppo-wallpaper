@@ -1,18 +1,20 @@
 <view class="image-con">
-  <view class='top'>
-    <image src='{{icon[0]}}'></image>
+  <view class="top">
+    <image src="{{icon[0]}}"></image>
   </view>
-  <view class='swiper'>
-    <swiper class='swiper' current="{{currentImgIndex}}" indicator-dots="{{false}}" autoplay="{{false}}" interval="{{5000}}" duration="{{500}}" bindchange="swiperChange" previous-margin="85rpx" next-margin="85rpx" skip-hidden-item-layout="true">
-      <block wx:for="{{allResList}}" wx:key="index">
-        <swiper-item>
-          <view class="swiper-item-con {{currentImgIndex == index?'swiper-active':''}}">
-            <image src="{{item}}" data-src="{{item}}" class="change-img" mode="aspectFill" bindtap='previewImg'></image>
-          </view>
-        </swiper-item>
-      </block>
+  <view class="swiper">
+    <swiper autoplay="{{false}}" bindchange="swiperChange" class="swiper" current="{{currentImgIndex}}" duration="{{500}}" indicatorDots="{{false}}" interval="{{5000}}" nextMargin="85rpx" previousMargin="85rpx" skipHiddenItemLayout="true">
+      <swiper-item wx:for="{{allResList}}" wx:key="index">
+        <view class="swiper-item-con {{currentImgIndex==index?'swiper-active':''}}">
+          <image bindtap="previewImg" class="change-img" data-src="{{item}}" mode="aspectFill" src="{{item}}"></image>
+        </view>
+      </swiper-item>
     </swiper>
   </view>
-  <view class='bottomTip' bindtap="addGroup">🔥 加入壁纸群 🔥</view>
-  <view class='bottom'>Copyright © 壁纸资源来自 OPPO锁屏杂志，未经允许禁止商用、二次上传以及转载。</view>
+  <view bindtap="addGroup" class="bottomTip">
+    🔥看视频加入壁纸圈
+    <view class="bottomTip-num">(人数:{{addPersonNum||'-'}})</view>
+    🔥
+  </view>
+  <view class="bottom">Copyright © 壁纸资源来自 OPPO锁屏杂志，未经允许禁止商用、二次上传以及转载。</view>
 </view>

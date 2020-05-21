@@ -1,48 +1,56 @@
+var e = null;
+
 Page({
   data: {
-    allResList: [
-      "http://magzinefs7.nearme.com.cn/uploads/wallpaper/2/2018/12/21/5c1c58074a415_1080x1920.jpg",
-      "http://magzinefs8.nearme.com.cn/uploads/wallpaper/1/2018/12/25/5c21da5010b60_1080x1920.jpg",
-      "http://magzinefs4.nearme.com.cn/uploads/wallpaper/2/2018/12/22/5c1daca2dc1b2_1080x1920.jpg",
-      "http://magzinefs6.nearme.com.cn/uploads/wallpaper/0/2018/12/27/5c248e6892cd1_1080x1920.jpg"
-    ], // 图片数组
+    allResList: ["http://magzinefs7.nearme.com.cn/uploads/wallpaper/2/2018/12/21/5c1c58074a415_1080x1920.jpg", "http://magzinefs8.nearme.com.cn/uploads/wallpaper/1/2018/12/25/5c21da5010b60_1080x1920.jpg", "http://magzinefs4.nearme.com.cn/uploads/wallpaper/2/2018/12/22/5c1daca2dc1b2_1080x1920.jpg", "http://magzinefs6.nearme.com.cn/uploads/wallpaper/0/2018/12/27/5c248e6892cd1_1080x1920.jpg"],
     currentImgIndex: 0,
-    icon: [
-      "../../image/YSG-x-logo.png"
-    ]
+    icon: ["../../image/YSG-x-logo.png"],
+    addPersonNum: 0
   },
-  onLoad () { },
-  swiperChange (e) {
-    const { current } = e.detail
-    this.setData({ currentImgIndex: current })
+  onLoad: function () {
+    this.setData({
+      addPersonNum: parseInt(200 * Math.random() + 400)
+    }), wx.createRewardedVideoAd && ((e = wx.createRewardedVideoAd({
+      adUnitId: "adunit-9e9b61bbf0da8932"
+    })).onLoad(function () { }), e.onError(function (e) { }), e.onClose(function (e) {
+      e && e.isEnded ? wx.setClipboardData({
+        data: "1178539345",
+        success: function () {
+          wx.showToast({
+            title: "已复制快去添加"
+          });
+        }
+      }) : wx.showToast({
+        title: "你要看完才行哦",
+        icon: "none"
+      });
+    }));
   },
-  /**
-   * 预览图片
-   */
-  previewImg (e) {
+  swiperChange: function (e) {
+    var a = e.detail.current;
+    this.setData({
+      currentImgIndex: a
+    });
+  },
+  previewImg: function (e) {
     wx.previewImage({
-      current: e.currentTarget.dataset.src, // 当前显示图片的http链接
-      urls: [e.currentTarget.dataset.src] // 需要预览的图片http链接列表
-    })
+      current: e.currentTarget.dataset.src,
+      urls: [e.currentTarget.dataset.src]
+    });
   },
-  /**
-   * 加微信
-   */
-  addGroup () {
-    wx.setClipboardData({
-      data: "1178539345",
-      success () {
-        wx.showToast({ title: '微信号已复制' })
-      }
-    })
+  addGroup: function () {
+    e && e.show().catch(function () {
+      e.load().then(function () {
+        return e.show();
+      }).catch(function (e) {
+        console.log("激励视频 广告显示失败");
+      });
+    });
   },
-  /**
-   * 转发
-   */
-  onShareAppMessage () {
+  onShareAppMessage: function () {
     return {
       title: "仪式感壁纸",
       path: "pages/index/index"
-    }
+    };
   }
-})
+});
